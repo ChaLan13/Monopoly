@@ -9,12 +9,12 @@ public class De{
 			System.exit(2);
 		}
 		this.max = max;
-		this.min = min
+		this.min = min;
 	}
 	
 	public De(){}
 	
 	public int jet(){
-		return (Math.random() * (max-min + 1)) + min;
+		return (int)(Math.random() * (max-min + 1)) + min;
 	}
 }

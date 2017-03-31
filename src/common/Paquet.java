@@ -1,38 +1,46 @@
 package common;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import common.Carte;
 
 public class Paquet{
-	private Carte cartes[];
+	private ArrayList<Carte> pile;
 	private int max = 1;
 	private int nbr = 0;
 	
 	public Paquet(int max){
 		if(max < 1){
-			system.exit(2);
+			System.exit(2);
 		}
 		this.max = max;
-		cartes = new Carte[max];
-	};
-	
-	public boolean add(Carte carte){
-		if(nbr < max && carte != null){
-			this.cartes[nbr] = carte;
-			nbr++;
-			return true;
-		}
-		else
-			return false;
+		pile = new ArrayList<Carte>();
 	}
 	
-	public Carte tirer(){
-		int tmp = Math.random() * max;
-		return cartes[tmp];
+	public boolean add(Carte carte) throws IndexOutOfBoundsException{
+		if(nbr < max && carte != null){
+			nbr++;
+			return pile.add(carte);
+		}
+		else
+			throw new IndexOutOfBoundsException("Too much object");
+	}
+	
+	public Carte tirer() throws IndexOutOfBoundsException{
+		Carte res = pile.get(0);
+		pile.remove(0);
+		nbr--;
+		return res;
+	}
+	
+	public void shuffle(){
+		Collections.shuffle(pile);
 	}
 }
 
 //A REFAIRE AVEC UNE FIFO
-// -> une carte tirée est supprimée du paquets
+// -> une carte tire est supprimee du paquets
 // dans le main ne pas oublier de les remettre (add)
 
 // fonction melanger
