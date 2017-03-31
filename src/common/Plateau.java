@@ -1,5 +1,7 @@
 package common;
 
+import java.util.ArrayList;
+
 import common.Case;
 import common.Paquet;
 

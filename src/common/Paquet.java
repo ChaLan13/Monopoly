@@ -38,9 +38,3 @@ public class Paquet{
 		Collections.shuffle(pile);
 	}
 }
-
-//A REFAIRE AVEC UNE FIFO
-// -> une carte tire est supprimee du paquets
-// dans le main ne pas oublier de les remettre (add)
-
-// fonction melanger
