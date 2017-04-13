@@ -16,8 +16,9 @@ public class Paquet{
 		if(carte != null){
 			pile.add(carte);
 		}
-		else
+		else{
 			//TODO exception carte null
+		}
 	}
 	
 	public Carte tirer() throws IndexOutOfBoundsException{

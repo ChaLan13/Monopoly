@@ -7,7 +7,7 @@ import common.De;
 public class Jeu{
 	private Plateau plateau;
 	private Player players[];
-	private Des de;
+	private De de;
 	
 	//constructeur
 	//	preciser des entre 2 et 12;
