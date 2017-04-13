@@ -5,7 +5,6 @@ import common.Carte;
 public class Player{
 	private String nom;
 	private int position = 0;
-	private boolean perdu = false;
 	
 	private Carte inv[];//inventaire
 	
@@ -14,7 +13,7 @@ public class Player{
 	}
 	
 	public void setNom(String nom){
-		if(nom == null || nom == "")
+		if(nom == null || nom == "")//TODO exception
 			System.exit(1);
 		this.nom = nom;
 	}

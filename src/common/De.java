@@ -5,7 +5,7 @@ public class De{
 	private int min = 1;
 	
 	public De(int min, int max){
-		if(max <= 0 || min <= 0 || min >= max){
+		if(max <= 0 || min <= 0 || min >= max){//TODO Exception!!
 			System.exit(2);
 		}
 		this.max = max;

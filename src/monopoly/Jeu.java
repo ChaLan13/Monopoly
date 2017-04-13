@@ -1,4 +1,4 @@
-package common;
+package monopoly;
 
 import common.Plateau;
 import common.Player;
