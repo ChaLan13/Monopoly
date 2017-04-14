@@ -4,7 +4,6 @@ import common.De;
 import common.Player;
 import monopoly.Jeu;
 import common.Paquet;
-import common.Plateau;
 
 import fenetre.FenetrePrincipale;
 import javafx.application.Application;

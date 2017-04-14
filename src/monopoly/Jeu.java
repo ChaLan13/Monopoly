@@ -1,11 +1,11 @@
 package monopoly;
 
-import common.Plateau;
 import common.Player;
+import common.Case;
 import common.De;
 
 public class Jeu{
-	private Plateau plateau;
+	private Case plateau[];
 	private Player players[];
 	private De de;
 	
