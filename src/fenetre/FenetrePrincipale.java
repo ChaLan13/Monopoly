@@ -10,8 +10,6 @@ public class FenetrePrincipale {
 		this.stage = stage;
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root,400,400);
-		//inutile -->
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 	}
