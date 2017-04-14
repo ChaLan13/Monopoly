@@ -1,20 +1,23 @@
 package common;
 
 import common.Carte;
+import javax.naming.InvalidNameException;
 
 public class Player{
-	private String nom;
-	private int position = 0;
+	private String pseudo;
+	private int pos = 0;
+	private int money;
 	
 	private Carte inv[];//inventaire
 	
-	public Player(String nom){
-		setNom(nom);
+	public Player(String pseudo, int money)throws InvalidNameException{
+		setNom(pseudo);
+		this.money = money;
 	}
 	
-	public void setNom(String nom){
-		if(nom == null || nom == "")//TODO exception
-			System.exit(1);
-		this.nom = nom;
+	private void setNom(String pseudo) throws InvalidNameException{
+		if(pseudo == null || pseudo == "")
+			throw new InvalidNameException();
+		this.pseudo = pseudo;
 	}
 }

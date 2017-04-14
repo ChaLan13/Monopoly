@@ -9,6 +9,16 @@ public class Jeu{
 	private Player players[];
 	private De de;
 	
+	
+	public Jeu() {
+		de = new De(2,12);
+	}
+	
+	public void addPlayer(Player name){
+		
+	}
+
+
 	//constructeur
 	//	preciser des entre 2 et 12;
 	
