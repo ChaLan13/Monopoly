@@ -1,6 +1,6 @@
 package common;
 
-import common.Player;
+import monopoly.Player;
 
 public interface Case{
 	abstract void action(Player joueur, int scoreDe);

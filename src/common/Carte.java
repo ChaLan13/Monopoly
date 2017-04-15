@@ -1,14 +1,14 @@
 package common;
 
 
-import javax.naming.InvalidNameException;
+import java.security.InvalidParameterException;
 
 public class Carte{
 	private String titre;
 	private String desc;
 	private String paquet;
 	
-	public Carte(String titre, String desc)throws InvalidNameException{
+	public Carte(String titre, String desc)throws InvalidParameterException{
 		setTitre(titre);
 		setDesc(desc);
 	}
@@ -21,15 +21,15 @@ public class Carte{
 		this.paquet = paquet;
 	}
 
-	private void setTitre(String titre)throws InvalidNameException{
+	private void setTitre(String titre)throws InvalidParameterException{
 		if(titre == null || titre == "")
-			throw new InvalidNameException();
+			throw new InvalidParameterException("Carte.setTitre() - titre null ou vide");
 		this.titre = titre;
 	}
 
-	private void setDesc(String desc)throws InvalidNameException{
+	private void setDesc(String desc)throws InvalidParameterException{
 		if(desc == null)
-			throw new InvalidNameException();
+			throw new InvalidParameterException("Carte.setDesc() - description null");
 		this.desc = desc;
 	}
 

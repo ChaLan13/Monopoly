@@ -1,19 +1,18 @@
 package monopoly;
 
-import common.Player;
 import common.Case;
 import common.De;
 import common.Carte;
 import common.Paquet;
 
-import javax.naming.InvalidNameException;
+import java.security.InvalidParameterException;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Jeu{
-	private ArrayList<Case> terrain;
-	private ArrayList<Player> players;
+	private ArrayList<Case> terrain = new ArrayList<Case>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private De de;
 	private Paquet Chance, Communaute;
 	
@@ -21,7 +20,7 @@ public class Jeu{
 		de = new De(2,12);
 	}
 	
-	public void addPlayer(String name) throws InvalidNameException{
+	public void addPlayer(String name) throws InvalidParameterException{
 		players.add(new Player(name));
 	}
 
@@ -35,6 +34,7 @@ public class Jeu{
 		//TODO affichage (afficher le lancé des dé pour chaque joueur)
 		//le joueur i lance le dé
 		for(int i=0; i<players.size(); i++){
+			players.get(i).init();
 			tmp = desix.jet();
 			if(tmp > max){
 				max = tmp;
@@ -45,7 +45,11 @@ public class Jeu{
 		Collections.swap(players, 0, nbr);
 	}	
 	
-	private void tour(int num){
+	private void tour(int num)throws InvalidParameterException{
+		if(num > players.size() || num < 1)
+			throw new InvalidParameterException("Jeu.tour() - numero du joueur invalide");
+		
+		num--;//le joueur 1 est le numero 0
 		int tmp, lance;
 		Carte tmp2;
 		Player joueur = players.get(num);
@@ -55,10 +59,11 @@ public class Jeu{
 		// soit il peux payer 50
 		// soit il DOIT payer 50
 		if(joueur.getPrison() > 0){
-			if(joueur.searchInv("Sortie de prison") > -1){
+			tmp = joueur.searchInv("Sortie de prison");
+			if(tmp > -1){
 				//TODO affichage(demande au joueur d'utiliser sa carte
 				if(true/*utiliser la carte*/){
-					tmp2 = joueur.popInv(joueur.searchInv("Sortie de prison"));
+					tmp2 = joueur.popInv(tmp);
 					if(tmp2.getPaquet() == "Chance")
 						Chance.add(tmp2);
 					else
@@ -94,11 +99,12 @@ public class Jeu{
 				joueur.addMoney(200);
 				//TODO affichage(deplacement joueur)
 				joueur.moveto(tmp);
+				
+				//action quand il tombe sur une case
+				terrain.get(joueur.getPos()).action(joueur, lance);
 			}
 		}
 		
-		//action quand il tombe sur une case
-		terrain.get(joueur.getPos()).action(joueur, lance);
 		
 		//TODO affichage
 		//choix du joueur pour ajouter une maison ou echange etc
@@ -107,5 +113,12 @@ public class Jeu{
 
 		//fin, enlever un nombre de tour de prison
 		joueur.prisonMoin();
+		
+		//TODO faire perdre le joueur si son argent est negatif
+		//-> enlever tous ses terrains
+	}
+	
+	public int getNbrJoueur(){
+		return players.size();
 	}
 }

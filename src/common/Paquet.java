@@ -7,7 +7,7 @@ import java.lang.NullPointerException;
 import common.Carte;
 
 public class Paquet{
-	private ArrayList<Carte> pile;
+	private ArrayList<Carte> pile = new ArrayList<Carte>();
 	
 	public Paquet(){
 		pile = new ArrayList<Carte>();

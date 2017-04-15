@@ -1,8 +1,8 @@
 //imports
 import common.Carte;
 import common.De;
-import common.Player;
 import monopoly.Jeu;
+import monopoly.Player;
 import common.Paquet;
 
 import fenetre.FenetrePrincipale;
