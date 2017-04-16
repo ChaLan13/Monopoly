@@ -3,10 +3,14 @@ package common;
 
 import java.security.InvalidParameterException;
 
-public class Carte{
+import monopoly.Player;
+
+public abstract class Carte{
 	private String titre;
 	private String desc;
 	private String paquet;
+	
+	public abstract void action(Player joueur);
 	
 	public Carte(String titre, String desc)throws InvalidParameterException{
 		setTitre(titre);

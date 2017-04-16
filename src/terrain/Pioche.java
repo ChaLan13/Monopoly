@@ -18,9 +18,6 @@ public class Pioche implements Case {
 		this.paquet = paquet;
 	}
 
-
-
-
 	@Override
 	public void action(Player joueur, int scoreDe) {
 		// TODO Auto-generated method stub
@@ -32,6 +29,7 @@ public class Pioche implements Case {
 			//on a tiré la carte, ne pas oublier de la remettre dans le paquet
 			paquet.add(carte);
 		
+		carte.action(joueur);
 	}
 
 }

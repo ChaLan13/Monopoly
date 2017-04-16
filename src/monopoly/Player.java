@@ -11,6 +11,7 @@ public class Player{
 	private int pos;
 	private int money;
 	private int prison;
+	private boolean perdu;
 	
 	private ArrayList<Carte> inv = new ArrayList<Carte>();//inventaire
 	private ArrayList<Propriete> possession = new ArrayList<Propriete>();//terrains
@@ -31,6 +32,7 @@ public class Player{
 		prison = 0;
 		inv.clear();
 		possession.clear();
+		perdu = false;
 	}
 	
 	public void moveto(int num)throws InvalidParameterException{
@@ -38,6 +40,10 @@ public class Player{
 			throw new InvalidParameterException("Player.moveto() - Position inexisante");
 		
 		pos = num;
+	}
+	
+	public void gameOver(){
+		perdu = true;
 	}
 
 	public String getPseudo() {
@@ -71,7 +77,7 @@ public class Player{
 		this.prison = prison;
 	}
 	
-	public void prisonMoin(){
+	public void prisonMoins(){
 		if(prison > 0)
 			prison--;
 	}

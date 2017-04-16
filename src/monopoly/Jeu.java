@@ -112,10 +112,11 @@ public class Jeu{
 		//si son argent est négatif à la fin du tour, il a perdu
 
 		//fin, enlever un nombre de tour de prison
-		joueur.prisonMoin();
+		joueur.prisonMoins();
 		
 		//TODO faire perdre le joueur si son argent est negatif
 		//-> enlever tous ses terrains
+		//-> remettre l'inventaire dans les paquets
 	}
 	
 	public int getNbrJoueur(){
