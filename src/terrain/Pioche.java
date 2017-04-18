@@ -20,7 +20,6 @@ public class Pioche implements Case {
 
 	@Override
 	public void action(Player joueur, int scoreDe) {
-		// TODO Auto-generated method stub
 		Carte carte;
 		carte = paquet.tirer();
 		if(carte.getTitre().equals("Sortie de prison"))

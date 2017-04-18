@@ -97,7 +97,6 @@ public class Jeu{
 				//donc si il est sur la 40 c'est donc qu'il est sur la 0
 				tmp = tmp - 40;
 				joueur.addMoney(200);
-				//TODO affichage(deplacement joueur)
 				joueur.moveto(tmp);
 				
 				//action quand il tombe sur une case

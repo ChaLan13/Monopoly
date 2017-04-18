@@ -38,7 +38,8 @@ public class Player{
 	public void moveto(int num)throws InvalidParameterException{
 		if(num < 0 || num > 39)
 			throw new InvalidParameterException("Player.moveto() - Position inexisante");
-		
+
+		//TODO affichage(deplacement du joueur)
 		pos = num;
 	}
 	
