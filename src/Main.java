@@ -2,7 +2,6 @@
 import common.Carte;
 import common.De;
 import monopoly.Jeu;
-import monopoly.Player;
 import common.Paquet;
 
 import fenetre.FenetrePrincipale;
