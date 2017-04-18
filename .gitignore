@@ -26,7 +26,9 @@ hs_err_pid*
 .LSOverride
 
 # Thumbnails
-._*
+_config.yml
+.gitattributes
+.classpath
 
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
