@@ -7,24 +7,32 @@ import monopoly.Player;
 
 public abstract class Propriete implements Case {
 
-	private boolean estHypo = false;
-	private Player possesseur = null;
+	private boolean hypotheque;
+	private Player possesseur;
 	private int prix;
+	
+	public void init(){
+		clear();
+		hypotheque = false;
+	}
 	
 	public void achat(Player joueur){
 		//TODO affichage(demande d'achat de la case)
 		if(true/*Si le joueur achète*/){
-			joueur.addMoney(-prix);
+			joueur.subMoney(prix);
 			possesseur = joueur;
 		}
 	}
 
-	public void hypothequer(){
+	public void hypothequer() throws Exception{
 		//prix de l'hypothèque: prix/2
-		if(!estHypo && possesseur != null){
-			estHypo = true;
-			possesseur.addMoney(prix/2);
-		}
+		if(hypotheque)
+			throw new Exception("Terrain deja hypotheque");
+		if(possesseur == null)
+			throw new Exception("Pas de possesseur");
+		
+		hypotheque = true;
+		possesseur.addMoney(prix/2);
 	}
 	
 	public void leverHypo(){
@@ -38,17 +46,15 @@ public abstract class Propriete implements Case {
 		
 		//On peut lever l'hypotheque d'un terrain a la banque
 		//donc pas de possesseur obligatoire
-		if(estHypo){
-			estHypo = false;
+		if(hypotheque){
+			hypotheque = false;
 			if(possesseur != null){
-				possesseur.addMoney(-11*prix/20);
+				possesseur.subMoney(11*prix/20);
 			}
 		}
 	}
 	
 	public void action(Player joueur, int scoreDe)throws InvalidParameterException {
-		int tmp;
-		
 		if(joueur == null || scoreDe <= 0)
 			throw new InvalidParameterException("Propriete.action() - joueur null");
 		if(scoreDe <= 0)
@@ -58,9 +64,9 @@ public abstract class Propriete implements Case {
 		if(possesseur == null)
 			this.achat(joueur);
 		else{
-			if(!estHypo){
-				tmp = this.valeur(scoreDe);
-				joueur.addMoney(-tmp);
+			if(!hypotheque){
+				int tmp = this.valeur(scoreDe);
+				joueur.subMoney(tmp);
 				possesseur.addMoney(tmp);
 			}
 		}
@@ -75,16 +81,21 @@ public abstract class Propriete implements Case {
 		this.prix = prix;
 	}
 
-	public boolean isEstHypo() {
-		return estHypo;
+	public boolean estHypo() {
+		return hypotheque;
 	}
 
 	public Player getPossesseur() {
 		return possesseur;
 	}
+	
+	public void clear(){
+		possesseur = null;
+	}
 
 	public Propriete(int prix)throws InvalidParameterException {
 		setPrix(prix);
+		init();
 	}
 
 	public int getPrix() {

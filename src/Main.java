@@ -1,10 +1,4 @@
 //imports
-import common.Carte;
-import common.De;
-import monopoly.Jeu;
-import monopoly.Player;
-import common.Paquet;
-
 import fenetre.FenetrePrincipale;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,4 +15,12 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+	//création des cases etc
+	//NE PAS OUBLIER
+	//de lier le parc aux cartes monopoli (cagnote)
+	//lier les joueurs à la carte anniversaire
+	//lier les terrains entre eux
+	//lier les gares
+	//les compagnies
 }
