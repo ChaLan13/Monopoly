@@ -5,6 +5,7 @@ import common.De;
 import common.Carte;
 import common.Paquet;
 import monopoly.Player;
+import fenetre.Affichage;
 
 import java.security.InvalidParameterException;
 
@@ -33,17 +34,18 @@ public class Jeu{
 		int nbr = 0;
 		int tmp;
 		
-		//TODO affichage (afficher le lance des de pour chaque joueur)
+		//TODO affichage (afficher le lance des de pour chaque joueur) FAIT EN CONSOLE
 		//le joueur i lance le de
 		for(int i=0; i<players.size(); i++){
 			players.get(i).init();
 			tmp = desix.jet();
+			Affichage.print("Le joueur" +players.get(i).getPseudo() +" a fait un lancer egal a " +tmp+ "\n" );
 			if(tmp > max){
 				max = tmp;
 				nbr = i;
 			}
 		}
-		
+		Affichage.print("Le joueur " +players.get(nbr).getPseudo()+" commence. \n");
 		Collections.swap(players, 0, nbr);
 	}	
 	
@@ -64,10 +66,14 @@ public class Jeu{
 			// soit il DOIT payer 50
 			if(joueur.getPrison() > 0){
 				tmp = joueur.searchInv("Sortie de prison");
+				boolean rep;
 				if(tmp > -1){
 					
-					//TODO affichage(demande au joueur d'utiliser sa carte
-					if(true/*affichage.getBool("voulez-vous utiliser la carte sortie de prison")*/){
+					//TODO affichage(demande au joueur d'utiliser sa carte FAIT EN CONSOLE
+					Affichage.print("Voulez-vous utiliser votre carte de sortie de prison ?\n");
+					rep = Affichage.getBool();
+					if(rep){
+						Affichage.print("Vous utilisez votre carte sortie de prison. \n");
 						tmp2 = joueur.popInv(tmp);
 						if(tmp2.getPaquet() == "Chance")
 							Chance.add(tmp2);
@@ -76,16 +82,21 @@ public class Jeu{
 						
 						joueur.setPrison(0);
 					}
+					else 
+						Affichage.print("Vous gardez votre carte sortie de prison. \n");
 				}
 				if(joueur.getPrison() > 1){
-					//TODO affichage(demande au joueur de payer 50 pour sortir)
-					if(true/*payer 50*/){
+					//TODO affichage(demande au joueur de payer 50 pour sortir) FAIT EN CONSOLE
+					Affichage.print("Voulez-vous payer 50 pour sortir de prison ? \n");
+					rep= Affichage.getBool();;
+					if(rep/*payer 50*/){
 						joueur.addMoney(-50);
 						joueur.setPrison(0);
 					}
 				}
 				else if(joueur.getPrison() == 1){
-					//TODO affichage (popup "vous etes oblige de payer 50 pour sortir" "ok")
+					//TODO affichage (popup "vous etes oblige de payer 50 pour sortir" "ok") FAIT EN CONSOLE
+					Affichage.print("Vous etes oblige de payer 50 pour sortir de prison. \n");
 					joueur.addMoney(-50);
 					joueur.setPrison(0);
 				}
