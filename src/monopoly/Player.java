@@ -1,6 +1,7 @@
 package monopoly;
 
 import common.Carte;
+import common.Paquet;
 import terrain.Propriete;
 
 import java.security.InvalidParameterException;
@@ -35,8 +36,8 @@ public class Player{
 		pos = 0;
 		money = 1500;
 		prison = 0;
-		clearInv();
-		clearPossession();
+		inv.clear();
+		possession.clear();
 		perdu = false;
 	}
 	
@@ -76,20 +77,26 @@ public class Player{
 		return -1;
 	}
 	
-	public void clearInv(){
+	public void clearInv(Paquet chance, Paquet commu){
+		for(Carte e : inv){
+			if(e.getPaquet() == "Chance")
+				chance.add(e);
+			else
+				commu.add(e);
+		}
 		inv.clear();
 	}
 	
 	public void clearPossession(){
-		possession.clear();
-	}
-	
-	public void gameOver(){
-		perdu = true;
-		
 		for(Propriete e : getPossession()){
 			e.clear();
 		}
+		possession.clear();
+	}
+	
+	public void gameOver(Paquet chance, Paquet commu){
+		perdu = true;
+		clearInv(chance, commu);
 		clearPossession();
 	}
 

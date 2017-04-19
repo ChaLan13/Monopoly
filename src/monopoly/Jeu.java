@@ -121,14 +121,7 @@ public class Jeu implements Affichage{
 			joueur.prisonMoins();
 		
 			if(joueur.getMoney() < 0){
-				for(Carte e : joueur.getInv()){
-					if(e.getPaquet() == "Chance")
-						Chance.add(e);
-					else
-						Communaute.add(e);
-				}
-				joueur.clearInv();
-				joueur.gameOver();
+				joueur.gameOver(Chance, Communaute);
 			}
 		}
 	}
