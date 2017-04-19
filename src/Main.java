@@ -1,4 +1,9 @@
 //imports
+import common.Carte;
+import common.De;
+import monopoly.Jeu;
+import common.Paquet;
+
 import fenetre.FenetrePrincipale;
 import javafx.application.Application;
 import javafx.stage.Stage;
