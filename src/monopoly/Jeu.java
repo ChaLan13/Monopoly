@@ -39,7 +39,6 @@ public class Jeu implements Affichage{
 		for(int i=0; i<players.size(); i++){
 			players.get(i).init();
 			tmp = desix.jet();
-			premierLancer(tmp,i+1);
 			if(tmp > max){
 				max = tmp;
 				nbr = i;
@@ -68,8 +67,9 @@ public class Jeu implements Affichage{
 			if(joueur.getPrison() > 0){
 				tmp = joueur.searchInv("Sortie de prison");
 				if(tmp > -1){
+					
 					//TODO affichage(demande au joueur d'utiliser sa carte
-					if(true/*utiliser la carte*/){
+					if(true/*affichage.getBool("voulez-vous utiliser la carte sortie de prison")*/){
 						tmp2 = joueur.popInv(tmp);
 						if(tmp2.getPaquet() == "Chance")
 							Chance.add(tmp2);
@@ -167,7 +167,10 @@ public class Jeu implements Affichage{
 
 	public boolean getBool(){
 		Scanner sc = new Scanner(System.in);
+		sc.useDelimiter(System.getProperty("line.separator"));
+		
 		boolean suite = true;
+		
 		while(suite){
 			suite= false;
 			String rep = sc.nextLine();
@@ -179,17 +182,25 @@ public class Jeu implements Affichage{
 				case "yes":
 				case "YES":
 				case "oui":
-				case "OUI": return true;
+				case "OUI": 
+					sc.close();
+					return true;
 				
 				case "n":
 				case "N":
 				case "no":
 				case "NO":
 				case "non":
-				case "NON":return false;	
-				default : print("La saisie est incorrecte."); suite=true; 
+				case "NON":
+					sc.close();
+					return false;
+					
+				default : 
+					print("La saisie est incorrecte."); 
+					suite=true; 
 			}	
 		}
+		sc.close();
 		return false;
 	}
 

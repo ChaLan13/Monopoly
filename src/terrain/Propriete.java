@@ -91,6 +91,7 @@ public abstract class Propriete implements Case {
 	
 	public void clear(){
 		possesseur = null;
+		this.leverHypo();
 	}
 
 	public Propriete(int prix)throws InvalidParameterException {

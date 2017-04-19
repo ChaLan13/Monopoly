@@ -14,7 +14,6 @@ public class Terrain extends Propriete {
 	public void clear() {
 		super.clear();
 		nbrMaison = 0;
-		
 	}
 
 	public Terrain(int prix, int prixMaison, int[] valeur) throws InvalidParameterException {
