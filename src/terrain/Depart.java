@@ -13,4 +13,7 @@ public class Depart implements Case {
 		joueur.addMoney(200);
 	}
 
+	@Override
+	public void init() {}
+
 }

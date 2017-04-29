@@ -11,4 +11,7 @@ public class Police implements Case {
 
 	}
 
+	@Override
+	public void init() {}
+
 }

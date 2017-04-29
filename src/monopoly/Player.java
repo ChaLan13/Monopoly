@@ -144,4 +144,15 @@ public class Player{
 	public boolean aPerdu() {
 		return perdu;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj.toString() == this.toString();
+	}
+
+	@Override
+	public String toString() {
+		return this.getPseudo();
+	}
+	
 }

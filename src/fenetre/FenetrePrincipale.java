@@ -20,7 +20,6 @@ public class FenetrePrincipale {
 		iv1.setPreserveRatio(true);
         root.getChildren().add(iv1);
         stage.show();
-		
 	}
 	
 	

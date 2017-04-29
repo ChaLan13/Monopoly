@@ -31,4 +31,7 @@ public class Pioche implements Case {
 		carte.action(joueur);
 	}
 
+	@Override
+	public void init() {}
+
 }

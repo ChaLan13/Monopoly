@@ -9,4 +9,7 @@ public class Prison implements Case {
 	public void action(Player joueur, int scoreDe) {
 	}
 
+	@Override
+	public void init() {}
+
 }
