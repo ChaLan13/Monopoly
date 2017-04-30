@@ -62,7 +62,7 @@ public class Terrain extends Propriete {
 		//Si tous le groupe ne possede pas deja au moins 1 maison
 		for(Terrain e : groupe)
 			if(e.getNbrMaison() < nbrMaison)
-				throw new Exception("Pas assez de maisons sur les autres terrains de ce groupe");
+				throw new Exception("Pas assez de maisons sur les autres terrains de ce groupe\n(difference de 1maison max entre terrains d'un meme groupe)");
 		
 		nbrMaison++;
 		this.getPossesseur().subMoney(prixMaison);
@@ -80,7 +80,7 @@ public class Terrain extends Propriete {
 		//Si un terrain du groupe en possede 3
 		for(Terrain e : groupe)
 			if(e.getNbrMaison() > nbrMaison)
-				throw new Exception("Un terrain du groupe possede trop de maison pour deconstruire ici\n(difference de 1maison max entre terrains d'un meme groupe");
+				throw new Exception("Un terrain du groupe possede trop de maison pour deconstruire ici\n(difference de 1maison max entre terrains d'un meme groupe)");
 		
 		nbrMaison--;
 		this.getPossesseur().addMoney(prixMaison/2);
@@ -104,4 +104,11 @@ public class Terrain extends Propriete {
 		
 		this.groupe = groupe;
 	}
+
+	@Override
+	public String toString(){
+		return super.toString() + "[" + (this.getNbrMaison() == 5 ? "1 hotel" : this.getNbrMaison() + " maison(s)") + "]";
+	}
+	
+	
 }

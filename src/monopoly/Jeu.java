@@ -4,6 +4,8 @@ import common.Case;
 import common.De;
 import common.Carte;
 import monopoly.Player;
+import terrain.Propriete;
+import terrain.Terrain;
 import fenetre.Affichage;
 
 import java.security.InvalidParameterException;
@@ -59,6 +61,33 @@ public class Jeu{
 		this.boucleJeu();
 	}	
 
+	private void boucleJeu(){
+		do{
+			for(int i=0; i<players.size(); i++)
+				this.tour(i);
+		}while(!this.finish());
+		
+		sys.print("La partie est finie!!!\n"
+				+"Le gagnant est: " + Gagnant().getName() + "\n\n");
+	}
+
+	public boolean finish(){
+		int reste = players.size();
+		for(Player e : players){
+			if(e.aPerdu())
+				reste--;
+		}
+		return reste == 1;
+	}
+	
+	private Player Gagnant(){
+		for(Player e : players){
+			if(!e.aPerdu())
+				return e;
+		}
+		return null;
+	}
+	
 	private void tour(int num)throws InvalidParameterException{
 		if(num > players.size()-1 || num < 0)
 			throw new InvalidParameterException("Jeu.tour() - numero du joueur invalide");
@@ -145,6 +174,27 @@ public class Jeu{
 				}
 
 				// TODO affichage
+				joueur.trier(terrain);
+				//permet d'afficher les possessions dans l'ordre du terrain
+				//et pas l'ordre d'achat
+				int rep;
+				do{
+					rep = sys.getInt("Que souhaitez vous faire ?\n"
+							+ "(Il vous reste " + joueur.getMoney() + "€)\n"
+							+ "1)Gerer les terrains ((de)construire des maison / hypothequer)\n "
+							+ "2)Echanger avec un joueur\n"
+							+ "0)Finir le tour\n"
+							+ "(Si vous finissez avec de l'argent negatif vous perdez)\n", 0, 2);
+					switch (rep) {
+					case 1:
+						this.gererTerrain(joueur);
+						break;
+					case 2:
+						this.echange(joueur);
+						break;
+					}
+				}while(rep != 0);
+				
 				// choix du joueur pour ajouter une maison ou echange etc
 				// le joueur peut finir sont tour ici, mais attention
 				// si son argent est negatif a la fin du tour, il a perdu
@@ -156,30 +206,118 @@ public class Jeu{
 		}
 	}
 	
-	private void boucleJeu(){
+	private void gererTerrain(Player joueur){
+		int rep = 0;
 		do{
-			for(int i=0; i<players.size(); i++)
-				this.tour(i);
-		}while(!this.finish());
+			ArrayList<Propriete> tmp = joueur.getPossession();
+
+			if (tmp.size() == 0) {
+				// TODO affichage(gere LES terrains)FAIT EN CONSOLE
+				sys.print("Vous ne possedez pas de terrain!");
+			} else {
+				String message = "Quel terrain voulez vous gerer?\n"
+						+ "(les - signifient que le terrain est hypotheque)\n";
+				int it = 0;
+				for (Propriete e : tmp) {
+					it++;
+					message += it + ")" + e.toString() + "\n";
+				}
+				message += "0) RETOUR\n";
+				rep = sys.getInt(message, 0, it);
+				if(rep != 0)
+					gerer(joueur, rep);
+			}
+		}while(rep != 0);
+	}
+	private void gerer(Player joueur, int num){
+		//TODO affichage(gerer un terrain)FAIT EN CONSOLE
+		Propriete tmp = joueur.getPossession(num--);
+		boolean estTerrain = tmp instanceof Terrain;
+		//attention le 1e terrain est le num 0
+		String message = "Que voulez-vous faire?\n"
+				+ tmp.toString() + "\n"
+				+"1) " + (tmp.estHypo()? "Lever l'hypotheque" : "Hypothequer") + "\n";
 		
-		sys.print("La partie est finie!!!\n"
-				+"Le gagnant est: " + Gagnant().getName() + "\n\n");
+		if(estTerrain)
+			message += "2) Construire une maison\n"
+					+"3) Deconstruire une maison";
+		
+		message += "0) RETOUR";
+		
+		switch(sys.getInt(message, 0, (estTerrain?3:1))){
+		case 1:
+			try{
+				if(tmp.estHypo())
+					tmp.leverHypo();
+				else
+					tmp.hypothequer();
+				//Leve une hypotheque si pas de possesseur
+				//ou deja hypotheque
+				//(deja gere mais exception leve donc catch obligatoire)
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			break;
+		case 2:
+			try{
+				((Terrain)tmp).construire();
+			}
+			catch(Exception e){
+				sys.print(e.getMessage() + "\n");
+			}
+			break;
+		case 3:
+			try{
+				((Terrain)tmp).deconstruire();
+			}
+			catch(Exception e){
+				sys.print(e.getMessage() + "\n");
+			}
+			break;
+		}
 	}
 	
-	public boolean finish(){
-		int reste = players.size();
-		for(Player e : players){
-			if(e.aPerdu())
-				reste--;
+	private void echange(Player joueur){
+		int rep = 0;
+		ArrayList<Player> TMLP = new ArrayList<Player>();
+		String message = "Avec qui voulez-vous echanger?\n";
+		int it = 0;
+		for (Player e : players) {
+			if (!e.aPerdu() && !e.equals(joueur)) {
+				it++;
+				message += it + ") " + e.getName() + " (" + e.getMoney() + "€)\n";
+				TMLP.add(e);
+			}
 		}
-		return reste == 1;
+		message += "0) RETOUR\n";
+		rep = sys.getInt(message, 0, it);
+
+		if (rep != 0)
+			echangeJoueur(joueur, TMLP.get(rep--));
 	}
 	
-	private Player Gagnant(){
-		for(Player e : players){
-			if(!e.aPerdu())
-				return e;
-		}
-		return null;
+	private void echangeJoueur(Player joueur1, Player joueur2){
+		int rep = 0;
+		do{
+			//int money1, money2
+			//ArrayList<Propriete> echange1, echange2
+			
+			//switch
+			//1) ajouter depuis ton inventaire
+				//echangequoi(Player joueur1, int *money1, ArrayList<Propriete> *echange1)
+			//2) ajouter depuis l'inventaire de l'autre
+				//echangequoi(Player joueur2, int *money2, ArrayList<Propriete> *echange2)
+			//3) confirmer l'echange
+				//demande au joueur2
+			//0) annuler
+		}while(rep != 0);
 	}
+	//echangerquoi(param){
+	//message = echanger quoi?
+	//1) argent
+	//	modifier la somme
+	//Lister l'inventaire (+ deja selectionne, avant le "2)")
+	//	selectionner (ajouter a liste)
+	//0) RETOUR
 }

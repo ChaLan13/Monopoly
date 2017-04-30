@@ -116,4 +116,15 @@ public abstract class Propriete extends Case {
 	public int getPrix() {
 		return prix;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return this.toString().equals(obj.toString());
+	}
+
+	@Override
+	public String toString() {
+		return (this.estHypo()? "- " : "  ") + this.getName();
+	}
+	
 }

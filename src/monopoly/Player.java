@@ -185,6 +185,10 @@ public class Player{
 	public ArrayList<Propriete> getPossession() {
 		return possession;
 	}
+	
+	public Propriete getPossession(int num){
+		return possession.get(num);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
