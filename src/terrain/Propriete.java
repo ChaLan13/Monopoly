@@ -1,24 +1,29 @@
 package terrain;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 
 import common.Case;
+import fenetre.Affichage;
 import monopoly.Player;
 
-public abstract class Propriete implements Case {
+public abstract class Propriete extends Case {
 
 	private boolean hypotheque;
 	private Player possesseur;
 	private int prix;
 	
+	@Override
 	public void init(){
 		clear();
 		hypotheque = false;
 	}
 	
-	public void achat(Player joueur){
-		//TODO affichage(demande d'achat de la case)
-		if(true/*Si le joueur achète*/){
+	public void achat(Player joueur, Affichage sys){
+		//TODO affichage(demande d'achat de la case)FAIT EN CONSOLE
+		boolean tmp = sys.getBool("Voulez-vous acheter " + this.getName() + " pour " + this.getPrix() + "?");
+		
+		if(tmp){
 			joueur.subMoney(prix);
 			possesseur = joueur;
 		}
@@ -54,7 +59,7 @@ public abstract class Propriete implements Case {
 		}
 	}
 	
-	public void action(Player joueur, int scoreDe)throws InvalidParameterException {
+	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
 		if(joueur == null || scoreDe <= 0)
 			throw new InvalidParameterException("Propriete.action() - joueur null");
 		if(scoreDe <= 0)
@@ -62,10 +67,16 @@ public abstract class Propriete implements Case {
 		
 		
 		if(possesseur == null)
-			this.achat(joueur);
+			this.achat(joueur, sys);
 		else{
-			if(!hypotheque){
+			//TODO affichage(tomber sur un terrain possédé)FAIT EN CONSOLE
+			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
+			if(hypotheque){
+				sys.print("Le terrain est hypothéqué!\n");
+			}
+			else{
 				int tmp = this.valeur(scoreDe);
+				sys.print("Le montant du loyer est: " + tmp + "€\n");
 				joueur.subMoney(tmp);
 				possesseur.addMoney(tmp);
 			}
@@ -94,10 +105,13 @@ public abstract class Propriete implements Case {
 		this.leverHypo();
 	}
 
-	public Propriete(int prix)throws InvalidParameterException {
+	public Propriete(String name, int prix)throws InvalidParameterException {
+		super(name);
 		setPrix(prix);
 		init();
 	}
+	
+	
 
 	public int getPrix() {
 		return prix;

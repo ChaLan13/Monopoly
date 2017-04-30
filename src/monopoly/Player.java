@@ -1,14 +1,16 @@
 package monopoly;
 
 import common.Carte;
-import common.Paquet;
+import common.Case;
+import fenetre.Affichage;
 import terrain.Propriete;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Player{
-	private String pseudo;
+	private String name;
 	private int pos;
 	private int money;
 	private int prison;
@@ -22,16 +24,6 @@ public class Player{
 		init();
 	}
 	
-	public void addMoney(int somme){
-		//ajoute de l'argent
-		money = money + somme;
-	}
-	
-	public void subMoney(int somme){
-		//retire de l'argent
-		money = money - somme;
-	}
-	
 	public void init(){
 		pos = 0;
 		money = 1500;
@@ -41,28 +33,30 @@ public class Player{
 		perdu = false;
 	}
 	
-	public ArrayList<Carte> getInv() {
-		return inv;
-	}
-
-	public ArrayList<Propriete> getPossession() {
-		return possession;
-	}
-
-	public void moveto(int num)throws InvalidParameterException{
+	public void moveto(int num, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException{
 		if(num < 0 || num > 39)
 			throw new InvalidParameterException("Player.moveto() - Position inexisante");
+		if(sys == null)
+			throw new InvalidParameterException("Player.moveto() - affichage null");
+		if(terrain == null)
+			throw new InvalidParameterException("Player.moveto() - Terrain null");
 
-		//TODO affichage(deplacement du joueur)
+		//TODO affichage(deplacement du joueur)FAIT EN CONSOLE
+		sys.print(this.getName() + " se deplace jusque sur la case " + num + ", " + terrain.get(num).getName() + "\n");
 		pos = num;
 	}
 	
-	public void tpto(int num)throws InvalidParameterException{
+	public void tpto(int num, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException{
 		if(num < 0 || num > 39)
 			throw new InvalidParameterException("Player.tpto() - Position inexisante");
+		if(sys == null)
+			throw new InvalidParameterException("Player.moveto() - affichage null");
+		if(terrain == null)
+			throw new InvalidParameterException("Player.moveto() - Terrain null");
 
-		//TODO affichage(deplacement du joueur)
+		//TODO affichage(deplacement du joueur)FAIT EN CONSOLE
 		//attention pas glisser le pion, le mettre directement sur la case
+		sys.print(this.getName() + " va directement sur la case " + num + ", " + terrain.get(num).getName() + "\n");
 		pos = num;
 	}
 	
@@ -77,12 +71,20 @@ public class Player{
 		return -1;
 	}
 	
-	public void clearInv(Paquet chance, Paquet commu){
+	public int searchPossession(Propriete search){
+		//cherche dans les possession la propriete search
+		//si elle n'est pas trouvé, retourne -1
+		for(int i=0; i<inv.size(); i++){
+			if(possession.get(i).equals(search))
+				return i;
+		}
+		
+		return -1;
+	}
+	
+	public void clearInv(){
 		for(Carte e : inv){
-			if(e.getPaquet() == "Chance")
-				chance.add(e);
-			else
-				commu.add(e);
+			e.returnPaquet();
 		}
 		inv.clear();
 	}
@@ -94,14 +96,32 @@ public class Player{
 		possession.clear();
 	}
 	
-	public void gameOver(Paquet chance, Paquet commu){
+	public void gameOver(){
 		perdu = true;
-		clearInv(chance, commu);
+		clearInv();
 		clearPossession();
 	}
+	
+	public void addPossession(Propriete prop)throws InvalidParameterException{
+		if(prop == null)
+			throw new InvalidParameterException("Player.addPossession() -> prop null");
+		
+		possession.add(prop);
+	}
+	
+	public void trier(ArrayList<Case> terrain){
+		int i = 0;
+		for(Case e : terrain){
+			if(e instanceof Propriete){
+				int tmp = this.searchPossession((Propriete)e);
+				if(tmp > i)
+					Collections.swap(possession, i++, tmp);
+			}
+		}
+	}
 
-	public String getPseudo() {
-		return pseudo;
+	public String getName() {
+		return name;
 	}
 
 	public int getPos() {
@@ -120,9 +140,12 @@ public class Player{
 		this.prison = prison;
 	}
 	
-	public void prisonMoins(){
-		if(prison > 0)
+	public void prisonMoins(Affichage sys){
+		if(prison > 0){
+			//TODO affichage(Decrementation prison)FAIT EN CONSOLE
 			prison--;
+			sys.print("Il te reste " + prison + " tour" + (prison>1?"s":"") + " en prison.\n");
+		}
 	}
 
 	public void addInv(Carte carte)throws InvalidParameterException{
@@ -138,13 +161,31 @@ public class Player{
 	private void setNom(String pseudo) throws InvalidParameterException{
 		if(pseudo == null || pseudo == "")
 			throw new InvalidParameterException("Player.setNom() - Nom vide");
-		this.pseudo = pseudo;
+		this.name = pseudo;
 	}
 
 	public boolean aPerdu() {
 		return perdu;
 	}
+
+	public void addMoney(int somme){
+		//ajoute de l'argent
+		money = money + somme;
+	}
 	
+	public void subMoney(int somme){
+		//retire de l'argent
+		money = money - somme;
+	}
+
+	public ArrayList<Carte> getInv() {
+		return inv;
+	}
+
+	public ArrayList<Propriete> getPossession() {
+		return possession;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		return obj.toString() == this.toString();
@@ -152,7 +193,7 @@ public class Player{
 
 	@Override
 	public String toString() {
-		return this.getPseudo();
+		return this.getName();
 	}
 	
 }

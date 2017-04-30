@@ -3,14 +3,26 @@ package common;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.lang.NullPointerException;
+import java.security.InvalidParameterException;
 
 import common.Carte;
 
 public class Paquet{
+	private String name;
 	private ArrayList<Carte> pile = new ArrayList<Carte>();
 	
-	public Paquet(){
+	public Paquet(String name) throws InvalidParameterException{
+		if(name == null)
+			throw new InvalidParameterException("Paquet constructeur -> name null");
+		if(name == "")
+			throw new InvalidParameterException("Paquet constructeur -> name vide");
+		
+		this.name = name;
 		pile = new ArrayList<Carte>();
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 	public void add(Carte carte) throws NullPointerException{
@@ -18,6 +30,7 @@ public class Paquet{
 			throw new NullPointerException();
 	
 		pile.add(carte);
+		carte.setPaquet(this);
 	}
 	
 	public Carte tirer() throws IndexOutOfBoundsException{

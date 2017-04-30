@@ -16,8 +16,8 @@ public class Terrain extends Propriete {
 		nbrMaison = 0;
 	}
 
-	public Terrain(int prix, int prixMaison, int[] valeur) throws InvalidParameterException {
-		super(prix);
+	public Terrain(String name, int prix, int[] valeur, int prixMaison) throws InvalidParameterException {
+		super(name, prix);
 		if(valeur.length != 6)
 			throw new InvalidParameterException("Terrain Constructeur -> valeur[] de mauvaise taille");
 		if(prixMaison < 0)
@@ -98,10 +98,10 @@ public class Terrain extends Propriete {
 		return nbrMaison;
 	}
 
-	public void add(Terrain terrain) throws InvalidParameterException {
-		if(terrain == null)
+	public void add(ArrayList<Terrain> groupe) throws InvalidParameterException {
+		if(groupe == null)
 			throw new InvalidParameterException("Terrain.add() -> param null");
 		
-		groupe.add(terrain);
+		this.groupe = groupe;
 	}
 }
