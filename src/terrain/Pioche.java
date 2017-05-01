@@ -12,7 +12,7 @@ import monopoly.Player;
 public class Pioche extends Case {
 	private Paquet paquet;
 	
-	public Pioche(String name, Paquet paquet, ArrayList<Case> terrain)throws InvalidParameterException {
+	public Pioche(String name, Paquet paquet)throws InvalidParameterException {
 		super(name);
 		if(paquet == null)
 			throw new InvalidParameterException("Pioche constructeur - paquet null");

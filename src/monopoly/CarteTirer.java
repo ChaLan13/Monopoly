@@ -11,8 +11,12 @@ import fenetre.Affichage;
 public class CarteTirer extends Carte {
 	Paquet autre;
 
-	public CarteTirer(boolean special, String titre, String desc) throws InvalidParameterException {
+	public CarteTirer(boolean special, String titre, String desc, Paquet autre) throws InvalidParameterException {
 		super(special, titre, desc);
+		if(autre == null)
+			throw new InvalidParameterException("CarteTirer constructeur -> autre paquet null");
+		
+		this.autre = autre;
 	}
 	
 	public void add(Paquet autre)throws InvalidParameterException{

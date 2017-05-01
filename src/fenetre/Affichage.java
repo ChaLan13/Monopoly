@@ -21,6 +21,11 @@ public class Affichage {
 		sc.close();
 	}
 	
+	public String getString(String message){
+		this.print(message + "\n");
+		String rep = sc.nextLine();
+		return rep;
+	}
 	
 	//affiche le message puis demande un booleen
 	//ne pas mettre de \n a la fin de message
@@ -65,7 +70,10 @@ public class Affichage {
 	}
 	
 	public int getInt(String message){
-		return getInt(message, Integer.MAX_VALUE, Integer.MIN_VALUE);
+		return getInt(message, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+	public int getInt(String message, int min){
+		return getInt(message, min, Integer.MAX_VALUE);
 	}
 	
 	public int getInt(String message, int min, int max){

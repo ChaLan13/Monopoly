@@ -60,6 +60,17 @@ public class Player{
 		pos = num;
 	}
 	
+	public int searchInv(Carte carte){
+		//cherche dans l'inventaire la carte au titre "titre"
+		//si elle n'est pas trouvé, retourne -1
+		for(int i=0; i<inv.size(); i++){
+			if(inv.get(i).equals(carte))
+				return i;
+		}
+		
+		return -1;
+	}
+	
 	public int searchInv(String titre){
 		//cherche dans l'inventaire la carte au titre "titre"
 		//si elle n'est pas trouvé, retourne -1
@@ -107,6 +118,7 @@ public class Player{
 			throw new InvalidParameterException("Player.addPossession() -> prop null");
 		
 		possession.add(prop);
+		prop.setPossesseur(this);
 	}
 	
 	public void trier(ArrayList<Case> terrain){
@@ -181,6 +193,10 @@ public class Player{
 	public ArrayList<Carte> getInv() {
 		return inv;
 	}
+	
+	public Carte getInv(int num){
+		return inv.get(num);
+	}
 
 	public ArrayList<Propriete> getPossession() {
 		return possession;
@@ -188,6 +204,10 @@ public class Player{
 	
 	public Propriete getPossession(int num){
 		return possession.get(num);
+	}
+	
+	public Propriete popPossession(int num){
+		return possession.remove(num);
 	}
 
 	@Override

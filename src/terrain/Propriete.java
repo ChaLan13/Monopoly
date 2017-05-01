@@ -13,6 +13,12 @@ public abstract class Propriete extends Case {
 	private Player possesseur;
 	private int prix;
 	
+	public Propriete(String name, int prix)throws InvalidParameterException {
+		super(name);
+		setPrix(prix);
+		init();
+	}
+	
 	@Override
 	public void init(){
 		clear();
@@ -25,7 +31,8 @@ public abstract class Propriete extends Case {
 		
 		if(tmp){
 			joueur.subMoney(prix);
-			possesseur = joueur;
+			joueur.addPossession(this);
+			//va set le possesseur
 		}
 	}
 
@@ -105,13 +112,11 @@ public abstract class Propriete extends Case {
 		this.leverHypo();
 	}
 
-	public Propriete(String name, int prix)throws InvalidParameterException {
-		super(name);
-		setPrix(prix);
-		init();
+	public void setPossesseur(Player possesseur)throws InvalidParameterException{
+		if(possesseur == null)
+			throw new InvalidParameterException("Propriete.setPossesseur() -> possesseur null");
+		this.possesseur = possesseur;
 	}
-	
-	
 
 	public int getPrix() {
 		return prix;

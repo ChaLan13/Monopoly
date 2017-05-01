@@ -74,7 +74,9 @@ public class Carte{
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj.toString() == this.toString();
+		if(!(obj instanceof Carte))
+			return false;
+		return (obj.toString() == this.toString()) && (this.getPaquet() == ((Carte) obj).getPaquet());
 	}
 
 	@Override

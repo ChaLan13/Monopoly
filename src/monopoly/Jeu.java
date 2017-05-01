@@ -194,10 +194,6 @@ public class Jeu{
 						break;
 					}
 				}while(rep != 0);
-				
-				// choix du joueur pour ajouter une maison ou echange etc
-				// le joueur peut finir sont tour ici, mais attention
-				// si son argent est negatif a la fin du tour, il a perdu
 
 			}while(recommence);
 			if(joueur.getMoney() < 0){
@@ -240,7 +236,7 @@ public class Jeu{
 		
 		if(estTerrain)
 			message += "2) Construire une maison\n"
-					+"3) Deconstruire une maison";
+					+"3) Deconstruire une maison\n";
 		
 		message += "0) RETOUR";
 		
@@ -290,7 +286,7 @@ public class Jeu{
 				TMLP.add(e);
 			}
 		}
-		message += "0) RETOUR\n";
+		message += "0) RETOUR";
 		rep = sys.getInt(message, 0, it);
 
 		if (rep != 0)
@@ -300,24 +296,149 @@ public class Jeu{
 	private void echangeJoueur(Player joueur1, Player joueur2){
 		int rep = 0;
 		do{
-			//int money1, money2
-			//ArrayList<Propriete> echange1, echange2
+			int money = 0;
+			ArrayList<Propriete> echj1, echj2;
+			ArrayList<Carte> echcj1, echcj2;
+			echj1 = new ArrayList<Propriete>();
+			echj2 = new ArrayList<Propriete>();
+			echcj1 = new ArrayList<Carte>();
+			echcj2 = new ArrayList<Carte>();
 			
-			//switch
-			//1) ajouter depuis ton inventaire
-				//echangequoi(Player joueur1, int *money1, ArrayList<Propriete> *echange1)
-			//2) ajouter depuis l'inventaire de l'autre
-				//echangequoi(Player joueur2, int *money2, ArrayList<Propriete> *echange2)
-			//3) confirmer l'echange
-				//demande au joueur2
-			//0) annuler
+			String message = "Actuellement vous donnez:\n"
+					+ "(Attention les maisons disparraissent a l'echange)";
+			if(money <= 0 && echj1.size() == 0)
+				message += "    rien\n";
+			else{
+				if(money > 0)
+					message += "    " + money + "€\n";
+				for(Propriete e : echj1)
+					message += "    " + e.toString() + "€\n";
+				
+				for(Carte e: echcj1)
+					message += "    " + e.getTitre() + "\n";
+			}
+			
+			message += "\nEt " + joueur2.getName() + " vous donne:\n"
+					+ "(Attention es maisons disparraissent a l'echange)";
+			if(money >= 0 && echj2.size() == 0)
+				message += "    rien\n";
+			else{
+				if(money < 0)
+					message += "    " + (-money) + "€\n";
+				for(Propriete e : echj2)
+					message += "    " + e.toString() + "€\n";
+				
+				for(Carte e: echcj1)
+					message += "    " + e.getTitre() + "\n";
+			}
+			
+			//TODO affichage(echange)FAIT EN CONSOLE
+			sys.print(message);
+			message = "\nQue voulez vous faire?\n"
+					+"1)Gerer l'argent echange\n"
+					+"2)Gerer l'inventaire que vous echangez\n"
+					+"3)Gerer l'inventaire de l'autre joueur\n"
+					+"4)Confirmer l'echange\n"
+					+"0)RETOUR";
+			
+			rep = sys.getInt(message,0,4);
+			switch(rep){
+			case 1:
+				//gerer l'argent
+				money = sys.getInt("Combien d'argent voulez-vous echanger?\n"
+						+ "(Neg si l'autre joueur doit vous passer de l'argent)"
+						,-(joueur2.getMoney()),joueur1.getMoney());
+				//min: l'argent de l'autre joueur
+				//mais en negatif
+				//max: l'argent du joueur actuel
+				break;
+			case 2:
+				//gerer l'inv 1
+				echangerquoi(joueur1, echj1, echcj1);
+				break;
+			case 3:
+				//gerer l'inv 2
+				echangerquoi(joueur2, echj2, echcj2);
+				break;
+			case 4:
+				if(sys.getBool(joueur2.getName() + ", acceptez-vous l'echange?")){
+					//gerer l'argent des joueur
+					joueur1.subMoney(money);
+					joueur2.addMoney(money);
+					
+					//gerer le passage de l'inventaire du joueur 1 au joueur 2
+					for(Propriete e: echj1){
+						joueur1.popPossession(joueur1.searchPossession(e));
+						e.clear();
+						joueur2.addPossession(e);
+					}
+					for(Carte e: echcj1){
+						joueur1.popInv(joueur1.searchInv(e));
+						joueur2.addInv(e);
+					}
+					
+					//gerer le passage de l'inventaire du joueur2 au joueur 1
+					for(Propriete e: echj2){
+						joueur2.popPossession(joueur2.searchPossession(e));
+						e.clear();
+						joueur1.addPossession(e);
+					}
+					for(Carte e: echcj2){
+						joueur2.popInv(joueur2.searchInv(e));
+						joueur1.addInv(e);
+					}
+				}
+				rep = 0;
+				break;
+			}
 		}while(rep != 0);
 	}
-	//echangerquoi(param){
-	//message = echanger quoi?
-	//1) argent
-	//	modifier la somme
-	//Lister l'inventaire (+ deja selectionne, avant le "2)")
-	//	selectionner (ajouter a liste)
-	//0) RETOUR
+	private void echangerquoi(Player joueur, ArrayList<Propriete> ech, ArrayList<Carte> echc){
+		int rep = 0;
+		do{
+			String message = "Inventaire disponible:\n"
+					+"(le + signifie qu'il est deja en echange,)\n"
+					+"(re-selectionner pour l'enlever de l'echange)\n";
+			int it = 0;
+			for(Propriete e : joueur.getPossession()){
+				it++;
+				if(ech.contains(e))
+					message+="+";
+				else
+					message+=" ";
+				
+				message+= it + ")" + e.toString() + "\n";
+			}
+			int tmp = it;
+			//sauvegarder quand on passe d'une propriete a une carte
+			for(Carte e : joueur.getInv()){
+				it++;
+				if(echc.contains(e))
+					message+="+";
+				else
+					message+=" ";
+				
+				message+= it + ")" + e.toString() + "\n";
+			}
+			message += " 0) RETOUR (confirmer)";
+			
+			rep = sys.getInt(message, 0, it);
+			if(rep != 0){
+				if(rep <= tmp){//propriete
+					Propriete TMP = joueur.getPossession(rep-1);
+					if(ech.contains(TMP))
+						ech.remove(TMP);
+					else
+						ech.add(TMP);
+				}
+				else{//carte
+					Carte TMP = joueur.getInv(rep-tmp-1);
+					if(echc.contains(TMP))
+						echc.remove(TMP);
+					else
+						echc.add(TMP);
+				}
+			}
+		}while(rep != 0);
+	}
 }
