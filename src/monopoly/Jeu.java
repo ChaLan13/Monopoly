@@ -44,7 +44,7 @@ public class Jeu{
 		for(int i=0; i<players.size(); i++){
 			players.get(i).init();
 			tmp = desix.jet();
-			sys.print("Le joueur" +players.get(i).getName() +" a fait un lancer egal a " +tmp+ "\n" );
+			sys.print("Le joueur " +players.get(i).getName() +" a fait un lancer egal a " +tmp+ "\n" );
 			if(tmp > max){
 				max = tmp;
 				nbr = i;
@@ -166,11 +166,11 @@ public class Jeu{
 						// 0
 						tmp = tmp - 40;
 						joueur.addMoney(200);
-						joueur.moveto(tmp, sys, terrain);
-
-						// action quand il tombe sur une case
-						terrain.get(joueur.getPos()).action(joueur, lance, sys);
 					}
+					joueur.moveto(tmp, sys, terrain);
+
+					// action quand il tombe sur une case
+					terrain.get(joueur.getPos()).action(joueur, lance, sys);
 				}
 
 				// TODO affichage
