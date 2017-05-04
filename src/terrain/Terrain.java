@@ -32,7 +32,7 @@ public class Terrain extends Propriete {
 		if(nbrMaison == 0){
 			boolean tmp = false;
 			for(Terrain e : groupe)
-				if(e.getPossesseur().equals(getPossesseur()))
+				if(e.getPossesseur().equals(this.getPossesseur()))
 					tmp = true;
 			
 			if(tmp)
