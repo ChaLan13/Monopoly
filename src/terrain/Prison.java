@@ -17,4 +17,12 @@ public class Prison extends Case {
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
 		sys.print(joueur.getName() + " est en simple visite dans la prison.\n");
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Prison))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
 }

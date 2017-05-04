@@ -10,8 +10,8 @@ public class Compagnie extends Propriete {
 	Compagnie autre;
 	De de;
 
-	public Compagnie(String name, int prix) throws InvalidParameterException {
-		super(name, prix);
+	public Compagnie(String name) throws InvalidParameterException {
+		super(name, 150);
 		de = new De(2,12);
 	}
 	
@@ -54,4 +54,11 @@ public class Compagnie extends Propriete {
 		}
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Compagnie))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
+	
 }

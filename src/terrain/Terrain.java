@@ -98,11 +98,23 @@ public class Terrain extends Propriete {
 		return nbrMaison;
 	}
 
-	public void add(ArrayList<Terrain> groupe) throws InvalidParameterException {
-		if(groupe == null)
+	public void add(Terrain terr1, Terrain terr2) throws InvalidParameterException{
+		this.add(terr1);
+		this.add(terr2);
+	}
+	public void add(Terrain terr) throws InvalidParameterException {
+		if(terr == null)
 			throw new InvalidParameterException("Terrain.add() -> param null");
 		
-		this.groupe = groupe;
+		this.groupe.add(terr);
+		terr.add(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Terrain))
+			return false;
+		return this.toString().equals(obj.toString());
 	}
 
 	@Override

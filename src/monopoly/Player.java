@@ -171,7 +171,7 @@ public class Player{
 	}
 	
 	private void setNom(String pseudo) throws InvalidParameterException{
-		if(pseudo == null || pseudo == "")
+		if(pseudo == null || pseudo.equals(""))
 			throw new InvalidParameterException("Player.setNom() - Nom vide");
 		this.name = pseudo;
 	}
@@ -212,12 +212,14 @@ public class Player{
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj.toString() == this.toString();
-	}
+		if(!(obj instanceof Player))
+			return false;
+		return this.toString().equals(obj.toString());
+	}//faire en sorte de ne pas avoir 2 joueurs ayant le meme pseudo sinon bug
 
 	@Override
 	public String toString() {
-		return this.getName();
+		return this.getName() + "(" + this.getMoney() + "€)";
 	}
 	
 }

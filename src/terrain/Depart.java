@@ -22,15 +22,11 @@ public class Depart extends Case {
 		//et 200 ici
 		joueur.addMoney(200);
 	}
-	
 
 	@Override
-	public void actionCarte(Player joueur, Affichage sys) {
-		//TODO affichage(case depart carte)FAIT EN CONSOLE
-		sys.print(joueur.getName() + " recois 400€.\n");
-		//on gagne 2x plus d'argent en tombant pile sur la case départ
-		//200 dans jeu, quand on passe de 39 à 0
-		//et 200 ici
-		joueur.addMoney(400);
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Depart))
+			return false;
+		return this.toString().equals(obj.toString());
 	}
 }

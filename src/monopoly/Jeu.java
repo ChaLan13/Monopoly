@@ -110,7 +110,7 @@ public class Jeu{
 				// soit il peux payer 50
 				// soit il DOIT payer 50
 				if (joueur.getPrison() > 0) {
-					tmp = joueur.searchInv("Vous etes libere de prison.");
+					tmp = joueur.searchInv(Carte.SORTIE_PRISON_TITRE);
 					boolean rep;
 					if (tmp > -1) {
 

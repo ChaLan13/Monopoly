@@ -34,7 +34,11 @@ public class CarteChoix extends Carte {
 				break;
 		}
 	}
-	
-	
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof CarteChoix))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
 }

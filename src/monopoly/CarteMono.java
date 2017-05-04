@@ -48,8 +48,41 @@ public class CarteMono extends Carte {
 		joueur.addMoney(gain);
 		
 		if(caseCible){
-			joueur.moveto(deplacement, sys, terrain);
-			terrain.get(joueur.getPos()).actionCarte(joueur, sys);
+			if(getTitre().equals(Carte.PRISON_TITRE)){
+				joueur.moveto(deplacement, sys, terrain);
+				joueur.setPrison(3);
+			}
+			else{
+				int dpm = 0;
+				if(this.getTitre().equals(Carte.GARE_PLUS_PROCHE_TITRE)){
+					int tmp = joueur.getPos();
+					if(tmp < 5)
+						dpm = 5;
+					else if(tmp < 15)
+						dpm = 15;
+					else if(tmp < 25)
+						dpm = 25;
+					else if(tmp < 35)
+						dpm = 35;
+					else
+						dpm = 5;
+				}
+				else if(this.getTitre().equals(Carte.COMPAGNIE_PLUS_PROCHE_TITRE)){
+					int tmp = joueur.getPos();
+					if(tmp < 28 && tmp >= 12)//aller a la compagnie d'eau
+						dpm = 28;
+					else//aller a la compagnie elec
+						dpm = 12;
+				}
+				else{
+					dpm = this.deplacement;
+				}
+				//si il doit completer un tour pour arriver sur la case
+				if(joueur.getPos() > dpm)
+					joueur.addMoney(200);
+				joueur.moveto(dpm, sys, terrain);
+				terrain.get(joueur.getPos()).actionCarte(joueur, sys);
+			}
 		}
 		else{
 			if(deplacement != 0){
@@ -63,5 +96,11 @@ public class CarteMono extends Carte {
 			}
 		}
 	}
-
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof CarteMono))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
+	
 }

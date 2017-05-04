@@ -108,7 +108,7 @@ public class Affichage {
 	public static int toInt(String m)throws InvalidParameterException{
 		if(m == null)
 			throw new InvalidParameterException("Affichage.toInt() -> m null");
-		if(m == "")
+		if(m.equals(""))
 			throw new InvalidParameterException("Affichage.toInt() -> m vide");
 		
 		char[] entry = m.toCharArray();

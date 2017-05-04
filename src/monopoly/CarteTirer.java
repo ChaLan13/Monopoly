@@ -40,4 +40,11 @@ public class CarteTirer extends Carte {
 		carte.action(joueur, sys, terrain);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof CarteTirer))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
+
 }

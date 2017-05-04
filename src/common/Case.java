@@ -28,7 +28,7 @@ public abstract class Case{
 	private void setName(String name)throws InvalidParameterException{
 		if(name == null)
 			throw new InvalidParameterException("Propriete.setName() -> name null");
-		if(name == "")
+		if(name.equals(""))
 			throw new InvalidParameterException("Propriete.setName() -> name vide");
 		
 		this.name = name;
@@ -40,7 +40,9 @@ public abstract class Case{
 	
 	@Override
 	public boolean equals(Object obj) {
-		return this.toString() == obj.toString();
+		if(!(obj instanceof Case))
+			return false;
+		return this.toString().equals(obj.toString());
 	}
 
 	@Override

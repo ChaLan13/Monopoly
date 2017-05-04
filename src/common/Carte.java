@@ -8,6 +8,10 @@ import fenetre.Affichage;
 import monopoly.Player;
 
 public class Carte{
+	public static final String SORTIE_PRISON_TITRE = "VOUS ETES LIBERE DE PRISON";
+	public static final String PRISON_TITRE = "Allez en prison.";
+	public static final String GARE_PLUS_PROCHE_TITRE = "Avancez jusqu'a la gare la plus proche.";
+	public static final String COMPAGNIE_PLUS_PROCHE_TITRE = "Avancez jusqu'a la Compagnie de service public al plus proche.";
 	private String titre;
 	private String desc;
 	private Paquet paquet;
@@ -76,13 +80,13 @@ public class Carte{
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Carte))
 			return false;
-		return (obj.toString() == this.toString()) && (this.getPaquet() == ((Carte) obj).getPaquet());
+		return (obj.toString().equals(this.toString())) && (this.getPaquet().equals(((Carte) obj).getPaquet()));
 	}
 
 	@Override
 	public String toString() {
-		return this.getTitre() + "\n" 
-			+ this.getDesc();
+		return (this.getTitre()=="" ? "" : this.getTitre() + "\n")	//Enleve un retour a la ligne inutile
+			+ this.getDesc();										//Quand le titre est vide
 	}
 	
 }

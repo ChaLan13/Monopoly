@@ -50,4 +50,11 @@ public class CarteReparation extends Carte {
 		parc.addMoney(somme, sys);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof CarteReparation))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
+	
 }

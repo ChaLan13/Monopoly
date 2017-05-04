@@ -19,4 +19,12 @@ public class Police extends Case {
 		joueur.tpto(10, sys, terrain);
 		
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Police))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
 }

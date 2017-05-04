@@ -67,7 +67,7 @@ public abstract class Propriete extends Case {
 	}
 	
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
-		if(joueur == null || scoreDe <= 0)
+		if(joueur == null)
 			throw new InvalidParameterException("Propriete.action() - joueur null");
 		if(scoreDe <= 0)
 			throw new InvalidParameterException("Propriete.action() - score de invalide");
@@ -124,6 +124,8 @@ public abstract class Propriete extends Case {
 
 	@Override
 	public boolean equals(Object obj) {
+		if(!(obj instanceof Propriete))
+			return false;
 		return this.toString().equals(obj.toString());
 	}
 

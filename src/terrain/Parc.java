@@ -36,4 +36,11 @@ public class Parc extends Case {
 	public int getSomme() {
 		return somme;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Parc))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
 }

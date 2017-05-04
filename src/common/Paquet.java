@@ -14,7 +14,7 @@ public class Paquet{
 	public Paquet(String name) throws InvalidParameterException{
 		if(name == null)
 			throw new InvalidParameterException("Paquet constructeur -> name null");
-		if(name == "")
+		if(name.equals(""))
 			throw new InvalidParameterException("Paquet constructeur -> name vide");
 		
 		this.name = name;
@@ -42,4 +42,18 @@ public class Paquet{
 	public void shuffle(){
 		Collections.shuffle(pile);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Paquet))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	
 }

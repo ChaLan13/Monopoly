@@ -19,4 +19,17 @@ public class De{
 	public int jet(){
 		return (int)(Math.random() * (max-min + 1)) + min;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof De))
+			return false;
+		return this.toString().equals(obj.toString());
+	}
+
+	@Override
+	public String toString() {
+		return "De[max="+max+"; min="+min+"]";
+	}
+	
 }
