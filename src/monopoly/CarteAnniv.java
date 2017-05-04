@@ -15,7 +15,7 @@ public class CarteAnniv extends Carte {
 		super(titre, desc);
 		if(players == null)
 			throw new InvalidParameterException("CarteAnniv constructeur -> players = null");
-		if(somme < 0)
+		if(somme == 0)
 			throw new InvalidParameterException("CarteAnniv constructeur -> somme < 0");
 			
 		
@@ -28,7 +28,7 @@ public class CarteAnniv extends Carte {
 		super.action(joueur, sys, terrain);
 		int total = 0;
 		
-		//on enleve 10 à tout le monde
+		//on enleve 10 ï¿½ tout le monde
 		for(Player e : players){
 			e.subMoney(somme);
 			total+=somme;
@@ -37,7 +37,7 @@ public class CarteAnniv extends Carte {
 		//TODO affichage(carte anniv)FAIT EN CONSOLE
 		sys.print(joueur.getName() 
 				+ (total > 0? " gagne " : " paye ")
-				+ (total-somme) + "€\n");
+				+ (total-somme) + "ï¿½\n");
 		
 		//puis on ajoute le tout au joueur
 		//(le joueur se paye lui meme 10, ce n'est pas grave)
