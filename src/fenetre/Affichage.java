@@ -1,44 +1,47 @@
 package fenetre;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.InvalidParameterException;
-import java.util.Scanner;
 
 public class Affichage {
-	Scanner sc;
+	BufferedReader sc;
 
 	public Affichage() {
 		//scanner close a la fin du main
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		sc.useDelimiter(System.getProperty("line.separator"));
+        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
 	}
 
 	public void print(String message) {
-		System.out.print(message);
-	}
-	
-	public void close(){//Attention rend la classe inutilisable
-		sc.close();
+		System.out.println(message);
 	}
 	
 	public String getString(String message){
-		this.print(message + "\n");
-		String rep = sc.nextLine();
-		return rep;
+		try {
+			this.print(message);
+			String rep;
+			rep = sc.readLine();
+			return rep;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	//affiche le message puis demande un booleen
 	//ne pas mettre de \n a la fin de message
 	//plein de possibilité (o, O, oui, Oui, y, yes, Y, Yes ...)
 	public boolean getBool(String message) {
-		boolean suite = true;
-		
-		while(suite){
-			suite= false;
-			
-			this.print(message + "(o/n)\n");
-			String rep = sc.nextLine();
-			switch(rep){
+		try {
+			boolean suite = true;
+
+			while (suite) {
+				suite = false;
+
+				this.print(message + "(o/n)");
+				String rep = sc.readLine();
+				switch (rep) {
 				case "o":
 				case "O":
 				case "y":
@@ -50,7 +53,7 @@ public class Affichage {
 				case "Oui":
 				case "Yes":
 					return true;
-				
+
 				case "n":
 				case "N":
 				case "no":
@@ -60,11 +63,14 @@ public class Affichage {
 				case "Non":
 				case "No":
 					return false;
-					
-				default : 
-					print("La saisie est incorrecte.\n"); 
-					suite=true; 
-			}	
+
+				default:
+					print("La saisie est incorrecte.\n");
+					suite = true;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -77,31 +83,32 @@ public class Affichage {
 	}
 	
 	public int getInt(String message, int min, int max){
-		boolean suite = true;
-		String rep;
-		int repint;
-		
-		while(suite){
-			suite= false;
-			
-			this.print(message + "(o/n)\n");
-			rep = sc.nextLine();
-			
-			try{
-				repint = Affichage.toInt(rep);
-				if(repint < min || repint > max){
+		try{
+			boolean suite = true;
+			String rep;
+			int repint;
+
+			while (suite) {
+				suite = false;
+
+				this.print(message);
+				rep = sc.readLine();
+
+				try {
+					repint = Affichage.toInt(rep);
+					if (repint < min || repint > max) {
+						print("La saisie est incorrecte.\n");
+						suite = true;
+					} else
+						return repint;
+				} catch (InvalidParameterException e) {
 					print("La saisie est incorrecte.\n");
 					suite = true;
 				}
-				else
-					return repint;
 			}
-			catch(InvalidParameterException e){
-				print("La saisie est incorrecte.\n");
-				suite = true;
-			}
+		}catch (IOException e) {
+			e.printStackTrace();
 		}
-		
 		return min;
 	}
 	

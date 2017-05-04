@@ -55,8 +55,6 @@ public class Main extends Application {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		sys.close();
 	}
 	public static void main(String[] args) {
 		launch(args);
