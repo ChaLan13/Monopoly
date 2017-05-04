@@ -170,7 +170,7 @@ public class Jeu{
 					joueur.moveto(tmp, sys, terrain);
 
 					// action quand il tombe sur une case
-					terrain.get(joueur.getPos()).action(joueur, lance, sys);
+					terrain.get(joueur.getPos()).action(joueur, lance, sys, terrain);
 				}
 
 				// TODO affichage
