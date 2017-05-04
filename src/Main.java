@@ -56,7 +56,6 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		
-		
 		sys.close();
 	}
 	public static void main(String[] args) {
