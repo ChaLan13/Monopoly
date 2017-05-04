@@ -14,7 +14,7 @@ public class Affichage {
 	}
 
 	public void print(String message) {
-		System.out.print(message);
+		System.out.println(message);
 	}
 	
 	public void close(){//Attention rend la classe inutilisable
@@ -22,22 +22,22 @@ public class Affichage {
 	}
 	
 	public String getString(String message){
-		this.print(message + "\n");
-		String rep = sc.nextLine();
+		this.print(message);
+		String rep = sc.next();
 		return rep;
 	}
 	
 	//affiche le message puis demande un booleen
 	//ne pas mettre de \n a la fin de message
-	//plein de possibilité (o, O, oui, Oui, y, yes, Y, Yes ...)
+	//plein de possibilitï¿½ (o, O, oui, Oui, y, yes, Y, Yes ...)
 	public boolean getBool(String message) {
 		boolean suite = true;
 		
 		while(suite){
 			suite= false;
 			
-			this.print(message + "(o/n)\n");
-			String rep = sc.nextLine();
+			this.print(message + "(o/n)");
+			String rep = sc.next();
 			switch(rep){
 				case "o":
 				case "O":
@@ -84,8 +84,8 @@ public class Affichage {
 		while(suite){
 			suite= false;
 			
-			this.print(message + "(o/n)\n");
-			rep = sc.nextLine();
+			this.print(message);
+			rep = sc.next();
 			
 			try{
 				repint = Affichage.toInt(rep);
