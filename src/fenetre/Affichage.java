@@ -10,7 +10,7 @@ public class Affichage {
 
 	public Affichage() {
 		//scanner close a la fin du main
-        BufferedReader sc = new BufferedReader(new InputStreamReader(System.in));
+        sc = new BufferedReader(new InputStreamReader(System.in));
 	}
 
 	public void print(String message) {
@@ -31,7 +31,7 @@ public class Affichage {
 	
 	//affiche le message puis demande un booleen
 	//ne pas mettre de \n a la fin de message
-	//plein de possibilité (o, O, oui, Oui, y, yes, Y, Yes ...)
+	//plein de possibilitï¿½ (o, O, oui, Oui, y, yes, Y, Yes ...)
 	public boolean getBool(String message) {
 		try {
 			boolean suite = true;
@@ -41,7 +41,7 @@ public class Affichage {
 
 				this.print(message + "(o/n)");
 				String rep = sc.readLine();
-				switch (rep) {
+				switch(rep){
 				case "o":
 				case "O":
 				case "y":
