@@ -117,8 +117,14 @@ public class Main extends Application {
 			Terrain case8 = new Terrain("Rue de Courcelles", 100, new int[]{6, 30, 90, 270, 400, 550}, 50);
 			Terrain case9 = new Terrain("Avenue de la Republique", 120, new int[]{8, 40, 100, 300, 450, 600}, 50);
 			
+			//brun
 			case1.add(case3);
+			case3.add(case1);
+			
+			//bleu clair
 			case6.add(case8, case9);
+			case8.add(case6, case9);
+			case9.add(case6, case8);
 			
 			Prison case10 = new Prison("Simple Visite de prison");
 			Terrain case11 = new Terrain("Boulevard de la Villette", 140, new int[]{10, 50, 150, 450, 625, 750}, 100);
@@ -131,9 +137,15 @@ public class Main extends Application {
 			Terrain case18 = new Terrain("Boulevard St-Michel", 180, new int[]{14, 70, 200, 550, 750, 950}, 100);
 			Terrain case19 = new Terrain("Place Pigalle", 200, new int[]{16, 80, 220, 600, 800, 1000}, 100);
 			
+			//violet
 			case11.add(case13, case14);
+			case13.add(case11, case14);
+			case14.add(case11, case13);
 			
+			//orange
 			case16.add(case18, case19);
+			case18.add(case16, case19);
+			case19.add(case16, case18);
 			
 			Parc case20 = parc;
 			Terrain case21 = new Terrain("Avenue Matignon", 220, new int[]{1, 90, 250, 700, 875, 1050}, 150);
@@ -146,11 +158,19 @@ public class Main extends Application {
 			Compagnie case28 = new Compagnie("Compagnie de distribution des eaux");
 			Terrain case29 = new Terrain("Rue la Fayette", 280, new int[]{24, 120, 360, 850, 1025, 1200}, 150);
 			
+			//rouge
 			case21.add(case23, case24);
+			case23.add(case21, case24);
+			case24.add(case21, case23);
 			
+			//jaune
 			case26.add(case27, case29);
+			case27.add(case26, case29);
+			case29.add(case26, case27);
 			
+			//compagnies
 			case28.add(case12);
+			case12.add(case28);
 			
 			Police case30 = new Police("Allez en Prison");
 			Terrain case31 = new Terrain("Avenue de Breteuil", 300, new int[]{26, 130, 390, 900, 1100, 1275}, 200);
@@ -163,11 +183,20 @@ public class Main extends Application {
 			Impot case38 = new Impot("Taxe de luxe",parc, 100);
 			Terrain case39 = new Terrain("Rue de la Paix", 400, new int[]{50, 200, 600, 1400, 1700, 2000}, 200);
 			
+			//vert
 			case31.add(case32, case34);
+			case32.add(case31, case34);
+			case34.add(case31, case32);
 			
-			case39.add(case39);
+			//bleu nuit
+			case37.add(case39);
+			case39.add(case37);
 			
+			//gare
 			case5.add(case15, case25, case35);
+			case15.add(case5, case25, case35);
+			case25.add(case5, case15, case35);
+			case35.add(case5, case15, case25);
 			
 			terrain.add(case0);
 			terrain.add(case1);
@@ -225,11 +254,4 @@ public class Main extends Application {
 			}
 		}while(rep);
 	}
-	//création des cases etc
-	//NE PAS OUBLIER
-	//de lier le parc aux cartes monopoli (cagnote)
-	//lier les joueurs à la carte anniversaire
-	//lier les terrains entre eux
-	//lier les gares
-	//les compagnies
 }
