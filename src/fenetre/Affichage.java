@@ -3,7 +3,6 @@ package fenetre;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.InvalidParameterException;
 
 public class Affichage {
 	BufferedReader sc;
@@ -95,13 +94,13 @@ public class Affichage {
 				rep = sc.readLine();
 
 				try {
-					repint = Affichage.toInt(rep);
+					repint = Integer.parseInt(rep);
 					if (repint < min || repint > max) {
 						print("La saisie est incorrecte.\n");
 						suite = true;
 					} else
 						return repint;
-				} catch (InvalidParameterException e) {
+				} catch (NumberFormatException e) {
 					print("La saisie est incorrecte.\n");
 					suite = true;
 				}
@@ -110,30 +109,5 @@ public class Affichage {
 			e.printStackTrace();
 		}
 		return min;
-	}
-	
-	public static int toInt(String m)throws InvalidParameterException{
-		if(m == null)
-			throw new InvalidParameterException("Affichage.toInt() -> m null");
-		if(m.equals(""))
-			throw new InvalidParameterException("Affichage.toInt() -> m vide");
-		
-		char[] entry = m.toCharArray();
-		int tmp = 0;
-		boolean neg = entry[0] == '-';
-		
-		for(int i = neg?1:0; i < entry.length; i++){
-			if(entry[i] < '0' || entry[i] > '9')
-				throw new InvalidParameterException("Affichage.toInt() -> m invalide");
-			
-			tmp*=10;
-			
-			if(neg)
-				tmp-=entry[i] - '0';
-			else
-				tmp+=entry[i] - '0';
-		}
-		
-		return tmp;
 	}
 }
