@@ -62,38 +62,38 @@ public class Main extends Application {
 	
 	private void CreationCarte(Paquet chance, Paquet communaute, Parc parc, ArrayList<Player> players){
 		try{
-			communaute.add(new CarteReparation("Vous devez faire des travaux sur vos proprietes:", "Versez 40ï¿½ pour chaque maison et 115ï¿½ pour chaque hotel que vous possedez.", parc, 40, 115));
-			communaute.add(new CarteMono("", "Les impots vous remboursent 20ï¿½.", parc, 20));
-			communaute.add(new CarteMono("", "Votre placement vous rapporte. Recevez 100ï¿½.", parc, 100));
-			communaute.add(new CarteMono("", "Vous heritez de 100ï¿½.", parc, 100));
-			communaute.add(new CarteMono("Visite chez le medecin:", "Payez 50ï¿½.", parc, -50));
-			communaute.add(new CarteMono(Carte.PRISON_TITRE, "Allez tout droit en prison,\nNe passez pas par la case depart,\nNe recevez pas 200ï¿½.", parc, 10, true));
+			communaute.add(new CarteReparation("Vous devez faire des travaux sur vos proprietes:", "Versez 40€ pour chaque maison et 115€ pour chaque hotel que vous possedez.", parc, 40, 115));
+			communaute.add(new CarteMono("", "Les impots vous remboursent 20€.", parc, 20));
+			communaute.add(new CarteMono("", "Votre placement vous rapporte. Recevez 100€.", parc, 100));
+			communaute.add(new CarteMono("", "Vous heritez de 100€.", parc, 100));
+			communaute.add(new CarteMono("Visite chez le medecin:", "Payez 50€.", parc, -50));
+			communaute.add(new CarteMono(Carte.PRISON_TITRE, "Allez tout droit en prison,\nNe passez pas par la case depart,\nNe recevez pas 200€.", parc, 10, true));
 			communaute.add(new Carte(Carte.SORTIE_PRISON_TITRE, "Cette carte peut etre conservee jusqu'a ce qu'elle soit utilisee ou vendue."));
-			communaute.add(new CarteMono("Frais de scolarite.","Payez 50ï¿½.", parc, -50));
-			communaute.add(new CarteMono("", "La vente de votre stock vous rapporte 50ï¿½.", parc, 50));
-			communaute.add(new CarteMono("Vous avez gagne le 2e prix de beaute.", "Recevez 10ï¿½.", parc, 10));
-			communaute.add(new CarteAnniv("C'est votre anniversaire:", "Chaque joueur doit vous donner 10ï¿½.", 10, players));
-			communaute.add(new CarteMono("Erreur de la banque en votre faveur.","Recevez 200ï¿½.", parc, 200));
-			communaute.add(new CarteMono("Avancez jusqu'a la case depart","(Recevez 400ï¿½).", parc, 0, true));
-			communaute.add(new CarteMono("Frais d'hospitalisation.","Payez 100ï¿½.", parc, -100));
-			communaute.add(new CarteMono("Commission d'expert immobilier.","Recevez 25ï¿½.", parc, 25));
-			communaute.add(new CarteMono("", "Votre assurance vie vous rapporte 100ï¿½.", parc, 100));
+			communaute.add(new CarteMono("Frais de scolarite.","Payez 50€.", parc, -50));
+			communaute.add(new CarteMono("", "La vente de votre stock vous rapporte 50€.", parc, 50));
+			communaute.add(new CarteMono("Vous avez gagne le 2e prix de beaute.", "Recevez 10€.", parc, 10));
+			communaute.add(new CarteAnniv("C'est votre anniversaire:", "Chaque joueur doit vous donner 10€.", 10, players));
+			communaute.add(new CarteMono("Erreur de la banque en votre faveur.","Recevez 200€.", parc, 200));
+			communaute.add(new CarteMono("Avancez jusqu'a la case depart","(Recevez 400€).", parc, 0, true));
+			communaute.add(new CarteMono("Frais d'hospitalisation.","Payez 100€.", parc, -100));
+			communaute.add(new CarteMono("Commission d'expert immobilier.","Recevez 25€.", parc, 25));
+			communaute.add(new CarteMono("", "Votre assurance vie vous rapporte 100€.", parc, 100));
 			
 			chance.add(new CarteMono("", "Reculez de 3 cases.", parc, -3, false));
-			chance.add(new CarteMono("Avancez au boulevard de la villette.", "Si vous apssez par la case depart, recevez 200ï¿½.", parc, 11, true));
-			chance.add(new CarteMono("Rendez-vous a l'avenue Henri-Martin.", "Si vous apssez par la case depart, recevez 200ï¿½.", parc, 24, true));
-			chance.add(new CarteMono(Carte.PRISON_TITRE, "Allez tout droit en prison,\nNe passez pas par la case depart,\nNe recevez pas 200ï¿½.", parc, 10, true));
-			chance.add(new CarteMono("Avancez jusqu'a la case depart.", "(Recevez 200ï¿½).", parc, 0, true));
+			chance.add(new CarteMono("Avancez au boulevard de la villette.", "Si vous passez par la case depart, recevez 200€.", parc, 11, true));
+			chance.add(new CarteMono("Rendez-vous a l'avenue Henri-Martin.", "Si vous passez par la case depart, recevez 200€.", parc, 24, true));
+			chance.add(new CarteMono(Carte.PRISON_TITRE, "Allez tout droit en prison,\nNe passez pas par la case depart,\nNe recevez pas 200€.", parc, 10, true));
+			chance.add(new CarteMono("Avancez jusqu'a la case depart.", "(Recevez 200e).", parc, 0, true));
 			chance.add(new CarteMono(Carte.GARE_PLUS_PROCHE_TITRE,"Si elle n'appartient a personne, vous poouvez l'acheter aupres de la banque.\nSi elle appartient deja a un autre joueur, vous devez lui payer deux fois le loyer demande.", parc, 0, true));
 			chance.add(new CarteMono(Carte.COMPAGNIE_PLUS_PROCHE_TITRE, "Si elle n'appartient a personne, vous pouvez l'acheter aupres de la banque.\nSi elle appartient deja a un joueur, vous devez lui payer le montant du total de vos des multiplie par 10.", parc, 0, true));
 			chance.add(new CarteMono(Carte.GARE_PLUS_PROCHE_TITRE,"Si elle n'appartient a personne, vous poouvez l'acheter aupres de la banque.\nSi elle appartient deja a un autre joueur, vous devez lui payer deux fois le loyer demande.", parc, 0, true));
-			chance.add(new CarteMono("Votre immeuble et votre pret rapportent.","Touchez 150ï¿½.", parc, 150));
-			chance.add(new CarteReparation("Vous faites des reparations sur toutes vos proprietes:","Versez 25ï¿½ pour chaque maison et 100ï¿½ pour chaque hotel que vous possedez.", parc, 24, 100));
+			chance.add(new CarteMono("Votre immeuble et votre pret rapportent.","Touchez 150€.", parc, 150));
+			chance.add(new CarteReparation("Vous faites des reparations sur toutes vos proprietes:","Versez 25e pour chaque maison et 100€ pour chaque hotel que vous possedez.", parc, 24, 100));
 			chance.add(new CarteMono("", "Rendez-vous a la rue de la paix.", parc, 39, true));
-			chance.add(new CarteMono("Allez a la gare montparnasse.","Si vous passez par la case depart, recevez 200ï¿½.", parc, 5, true));
-			chance.add(new CarteMono("", "La banque vous verse un dividende de 50ï¿½.", parc, 50));
-			chance.add(new CarteMono("Amande pour exces de vitesse:","Payez 15ï¿½", parc, -15));
-			chance.add(new CarteAnniv("Vous avez ete elu president du conseil d'administration.","Versez 50 a chaque joueur.", -50, players));
+			chance.add(new CarteMono("Allez a la gare montparnasse.","Si vous passez par la case depart, recevez 200€.", parc, 5, true));
+			chance.add(new CarteMono("", "La banque vous verse un dividende de 50€.", parc, 50));
+			chance.add(new CarteMono("Amande pour exces de vitesse:","Payez 15€", parc, -15));
+			chance.add(new CarteAnniv("Vous avez ete elu president du conseil d'administration.","Versez 50€ a chaque joueur.", -50, players));
 			chance.add(new Carte(Carte.SORTIE_PRISON_TITRE,"Cette carte peut etre conservee jusqu'a ce qu'elle soit utilisee ou vendue."));
 		}
 		catch(Exception e){
@@ -124,7 +124,7 @@ public class Main extends Application {
 			case8.add(case6, case9);
 			case9.add(case6, case8);
 			
-			Prison case10 = new Prison("Simple Visite de prison");
+			Prison case10 = new Prison("Case Prison");
 			Terrain case11 = new Terrain("Boulevard de la Villette", 140, new int[]{10, 50, 150, 450, 625, 750}, 100);
 			Compagnie case12 = new Compagnie("Compagnie de distribution d'electricite");
 			Terrain case13 = new Terrain("Avenue de Neuilly", 140, new int[]{10, 50, 150, 450, 625, 750}, 100);
@@ -244,12 +244,17 @@ public class Main extends Application {
 	}
 	
 	private void CreationJoueur(ArrayList<Player> players, Affichage sys){
-		boolean rep;
+		//TODO cheat player money
+		players.add(new Player("Luky"));
+		players.get(0).addMoney(10000);
+		players.add(new Player("Cha"));
+		players.get(1).addMoney(10000);
+		/*boolean rep;
 		do{
 			rep = sys.getBool("Voulez-vous ajouter un joueur?");
 			if(rep){
 				players.add(new Player(sys.getString("Saisissez le pseudo:")));
 			}
-		}while(rep);
+		}while(rep);*/
 	}
 }

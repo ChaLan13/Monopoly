@@ -32,7 +32,7 @@ public class Gare extends Propriete {
 	int valeur(int scoreDe) {
 		int i=0;
 		for(Gare e: autres){
-			if( getPossesseur().equals(e.getPossesseur()))
+			if(this.getPossesseur() == e.getPossesseur())
 				i++;
 		}
 		return val[i];

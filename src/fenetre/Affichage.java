@@ -30,7 +30,7 @@ public class Affichage {
 	
 	//affiche le message puis demande un booleen
 	//ne pas mettre de \n a la fin de message
-	//plein de possibilit� (o, O, oui, Oui, y, yes, Y, Yes ...)
+	//plein de possibilite (o, O, oui, Oui, y, yes, Y, Yes ...)
 	public boolean getBool(String message) {
 		try {
 			boolean suite = true;
@@ -90,7 +90,7 @@ public class Affichage {
 			while (suite) {
 				suite = false;
 
-				this.print(message);
+				this.print(message + "(entre " + min + " et " + max + ")");
 				rep = sc.readLine();
 
 				try {

@@ -49,7 +49,7 @@ public class CarteMono extends Carte {
 		
 		if(caseCible){
 			if(getTitre().equals(Carte.PRISON_TITRE)){
-				joueur.moveto(deplacement, sys, terrain);
+				joueur.tpto(deplacement, sys, terrain);
 				joueur.setPrison(3);
 			}
 			else{

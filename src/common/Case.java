@@ -11,7 +11,6 @@ public abstract class Case{
 	
 	public Case(String name)throws InvalidParameterException {
 		setName(name);
-		init();
 	}
 
 	abstract public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain);

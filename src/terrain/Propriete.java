@@ -33,6 +33,8 @@ public abstract class Propriete extends Case {
 			joueur.subMoney(prix);
 			joueur.addPossession(this);
 			//va set le possesseur
+			//TODO affichage(confirmation d'achat)FAIT EN CONSOLE
+			sys.print("Terrain achete avec succes");
 		}
 	}
 
@@ -69,7 +71,7 @@ public abstract class Propriete extends Case {
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
 		if(joueur == null)
 			throw new InvalidParameterException("Propriete.action() - joueur null");
-		if(scoreDe <= 0)
+		if(scoreDe < 0)
 			throw new InvalidParameterException("Propriete.action() - score de invalide");
 		
 		

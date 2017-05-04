@@ -30,10 +30,10 @@ public class Terrain extends Propriete {
 	@Override
 	int valeur(int scoreDe) {
 		if(nbrMaison == 0){
-			boolean tmp = false;
+			boolean tmp = true;
 			for(Terrain e : groupe)
-				if(e.getPossesseur().equals(this.getPossesseur()))
-					tmp = true;
+				if(! (e.getPossesseur() == this.getPossesseur()))
+					tmp = false;
 			
 			if(tmp)
 				return valeur[0] * 2;

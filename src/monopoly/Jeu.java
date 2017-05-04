@@ -97,14 +97,20 @@ public class Jeu{
 		Player joueur = players.get(num);
 		boolean recommence = false;
 		int nbrDouble = 0;
+		// TODO affichage(Debut du tour)FAIT EN CONSOLE
+		sys.print("\n\n\n====================================");
+		sys.print("C'est au tour de " + joueur.getName() + " (" + joueur.getMoney() + "€)\n");
 		
 		if(!joueur.aPerdu()){
 			do{
-				recommence = false;
-				// TODO affichage(Debut du tour)FAIT EN CONSOLE
-				sys.print("C'est au tour de " + joueur.getName() + " (" + joueur.getMoney() + "€)\n");
+				if(recommence){
+					sys.print("\n\n\n====================================");
+					sys.print("Double! (" + nbrDouble + "e) " + joueur.getName() + " rejoue!\n");
+					recommence = false;
+				}
+				else
+					joueur.prisonMoins(sys);
 
-				joueur.prisonMoins(sys);
 				// si le joueur est en prison
 				// soit il a la carte sortie de prison
 				// soit il peux payer 50
@@ -126,7 +132,7 @@ public class Jeu{
 					if (joueur.getPrison() > 1) {
 						// TODO affichage(demande au joueur de payer 50 pour
 						// sortir) FAIT EN CONSOLE
-						rep = sys.getBool("Voulez-vous payer 50 pour sortir de prison ?");
+						rep = sys.getBool("Voulez-vous payer 50€ pour sortir de prison ?");
 						;
 						if (rep/* payer 50 */) {
 							joueur.addMoney(-50);
@@ -135,7 +141,7 @@ public class Jeu{
 					} else if (joueur.getPrison() == 1) {
 						// TODO affichage (popup "vous etes oblige de payer 50
 						// pour sortir" "ok") FAIT EN CONSOLE
-						sys.print("Vous etes oblige de payer 50 pour sortir de prison. \n");
+						sys.print("Vous etes oblige de payer 50€ pour sortir de prison. \n");
 						joueur.addMoney(-50);
 						joueur.setPrison(0);
 					}
@@ -145,19 +151,26 @@ public class Jeu{
 				// TODO affichage(lance de de du joueur num)FAIT EN CONSOLE
 				lance1 = de.jet();
 				lance2 = de.jet();
-				sys.print(joueur.getName() + " lance les des et fait " + lance1 + " et " + lance2 + "\n");
+				
+				//TODO cheat de
+				lance1 = sys.getInt("Premier de ?", 1, 6);
+				lance2 = sys.getInt("Deuxieme de?", 1, 6);
+				
+				lance = lance1 + lance2;
+				sys.print(joueur.getName() + " lance les des et fait " + lance1 + " et " + lance2 + " (" + lance + ")"
+						+ (lance1==lance2 ? "DOUBLE" : "") + "\n");
 				if (lance1 == lance2) {
 					nbrDouble++;
 					if (nbrDouble == 3) {
 						// TODO affichage(3e double)FAIT EN CONSOLE
 						sys.print("C'est le 3e double! Prison direct!");
-						joueur.tpto(30, sys, terrain);
+						joueur.tpto(10, sys, terrain);
+						joueur.setPrison(3);
 					}
 					else
 						recommence = true;
 				}
 
-				lance = lance1 + lance2;
 				if (joueur.getPrison() == 0) {
 					tmp = lance + joueur.getPos();
 					if (tmp > 39) {// passer par la case depart
@@ -166,12 +179,17 @@ public class Jeu{
 						// 0
 						tmp = tmp - 40;
 						joueur.addMoney(200);
+						//TODO affichage(case depart)FAIT EN CONSOLE
+						sys.print(joueur.getName() + " passe par la case depart!");
 					}
 					joueur.moveto(tmp, sys, terrain);
 
 					// action quand il tombe sur une case
 					terrain.get(joueur.getPos()).action(joueur, lance, sys, terrain);
 				}
+				
+				if(joueur.getPrison()>0)//etre en prison stop le double
+					recommence = false;
 
 				// TODO affichage
 				joueur.trier(terrain);
@@ -179,9 +197,9 @@ public class Jeu{
 				//et pas l'ordre d'achat
 				int rep;
 				do{
-					rep = sys.getInt("Que souhaitez vous faire ?\n"
-							+ "(Il vous reste " + joueur.getMoney() + "€)\n"
-							+ "1)Gerer les terrains ((de)construire des maison / hypothequer)\n "
+					rep = sys.getInt("\n\nQue souhaitez vous faire ?\n"
+							+ "(Il vous reste " + joueur.getMoney() + "e)\n"
+							+ "1)Gerer les terrains ((de)construire des maison / hypothequer)\n"
 							+ "2)Echanger avec un joueur\n"
 							+ "0)Finir le tour\n"
 							+ "(Si vous finissez avec de l'argent negatif vous perdez)\n", 0, 2);
@@ -203,40 +221,39 @@ public class Jeu{
 	}
 	
 	private void gererTerrain(Player joueur){
-		int rep = 0;
-		do{
-			ArrayList<Propriete> tmp = joueur.getPossession();
+		ArrayList<Propriete> tmp = joueur.getPossession();
 
-			if (tmp.size() == 0) {
-				// TODO affichage(gere LES terrains)FAIT EN CONSOLE
-				sys.print("Vous ne possedez pas de terrain!");
-			} else {
-				String message = "Quel terrain voulez vous gerer?\n"
-						+ "(les - signifient que le terrain est hypotheque)\n";
-				int it = 0;
-				for (Propriete e : tmp) {
-					it++;
-					message += it + ")" + e.toString() + "\n";
-				}
-				message += "0) RETOUR\n";
-				rep = sys.getInt(message, 0, it);
-				if(rep != 0)
-					gerer(joueur, rep);
+		if (tmp.size() == 0) {
+			// TODO affichage(gere LES terrains)FAIT EN CONSOLE
+			sys.print("Vous ne possedez pas de terrain!");
+		} else {
+			String message = "Quel terrain voulez vous gerer?\n" + "(les - signifient que le terrain est hypotheque)\n";
+			int it = 0;
+			for (Propriete e : tmp) {
+				it++;
+				message += it + ")" + e.toString() + "\n";
 			}
-		}while(rep != 0);
+			message += "0) RETOUR\n";
+			int rep = sys.getInt(message, 0, it);
+			if (rep != 0)
+				gerer(joueur, rep - 1);
+		}
 	}
 	private void gerer(Player joueur, int num){
 		//TODO affichage(gerer un terrain)FAIT EN CONSOLE
-		Propriete tmp = joueur.getPossession(num--);
+		Propriete tmp = joueur.getPossession(num);
 		boolean estTerrain = tmp instanceof Terrain;
 		//attention le 1e terrain est le num 0
 		String message = "Que voulez-vous faire?\n"
 				+ tmp.toString() + "\n"
-				+"1) " + (tmp.estHypo()? "Lever l'hypotheque" : "Hypothequer") + "\n";
+				+"1) "
+				+ (tmp.estHypo()? "Lever l'hypotheque (" + 11*tmp.getPrix()/20 +"€)"
+						: "Hypothequer (" + tmp.getPrix()/2 + "€)" )
+				+ "\n";
 		
 		if(estTerrain)
 			message += "2) Construire une maison\n"
-					+"3) Deconstruire une maison\n";
+					+ "3) Deconstruire une maison\n";
 		
 		message += "0) RETOUR";
 		
@@ -290,13 +307,13 @@ public class Jeu{
 		rep = sys.getInt(message, 0, it);
 
 		if (rep != 0)
-			echangeJoueur(joueur, TMLP.get(rep--));
+			echangeJoueur(joueur, TMLP.get(rep-1));
 	}
 	
 	private void echangeJoueur(Player joueur1, Player joueur2){
 		int rep = 0;
+		int money = 0;
 		do{
-			int money = 0;
 			ArrayList<Propriete> echj1, echj2;
 			ArrayList<Carte> echcj1, echcj2;
 			echj1 = new ArrayList<Propriete>();
@@ -312,21 +329,21 @@ public class Jeu{
 				if(money > 0)
 					message += "    " + money + "€\n";
 				for(Propriete e : echj1)
-					message += "    " + e.toString() + "€\n";
+					message += "    " + e.toString() + "\n";
 				
 				for(Carte e: echcj1)
 					message += "    " + e.getTitre() + "\n";
 			}
 			
 			message += "\nEt " + joueur2.getName() + " vous donne:\n"
-					+ "(Attention es maisons disparraissent a l'echange)";
+					+ "(Attention les maisons disparraissent a l'echange)";
 			if(money >= 0 && echj2.size() == 0)
 				message += "    rien\n";
 			else{
 				if(money < 0)
 					message += "    " + (-money) + "€\n";
 				for(Propriete e : echj2)
-					message += "    " + e.toString() + "€\n";
+					message += "    " + e.toString() + "\n";
 				
 				for(Carte e: echcj1)
 					message += "    " + e.getTitre() + "\n";

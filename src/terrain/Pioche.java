@@ -32,6 +32,10 @@ public class Pioche extends Case {
 		carte.action(joueur, sys, terrain);
 	}
 
+	@Override
+	public void init() {
+		paquet.shuffle();
+	}
 
 	@Override
 	public boolean equals(Object obj) {

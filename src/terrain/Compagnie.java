@@ -23,7 +23,7 @@ public class Compagnie extends Propriete {
 
 	@Override
 	public int valeur(int scoreDe) {
-		if(this.getPossesseur().equals(autre.getPossesseur())){
+		if(this.getPossesseur() == autre.getPossesseur()){
 			return scoreDe * 4;
 		}
 		else{

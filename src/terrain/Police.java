@@ -17,7 +17,7 @@ public class Police extends Case {
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
 		sys.print(joueur.getName() + " tombe sur la case Aller en prison!!!\n");
 		joueur.tpto(10, sys, terrain);
-		
+		joueur.setPrison(3);
 	}
 
 

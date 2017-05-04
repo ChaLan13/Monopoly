@@ -15,7 +15,10 @@ public class Prison extends Case {
 
 	@Override
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
-		sys.print(joueur.getName() + " est en simple visite dans la prison.\n");
+		if(joueur.getPrison() == 0)
+			sys.print(joueur.getName() + " est en simple visite dans la prison.");
+		else
+			sys.print(joueur.getName() + " est en prison.");
 	}
 
 
