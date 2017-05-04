@@ -118,7 +118,6 @@ public class Main extends Application {
 			Terrain case9 = new Terrain("Avenue de la Republique", 120, new int[]{8, 40, 100, 300, 450, 600}, 50);
 			
 			case1.add(case3);
-			
 			case6.add(case8, case9);
 			
 			Prison case10 = new Prison("Simple Visite de prison");

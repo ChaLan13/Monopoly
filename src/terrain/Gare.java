@@ -24,11 +24,8 @@ public class Gare extends Propriete {
 			throw new InvalidParameterException("Gare.add() -> Param NULL");
 		
 		this.autres.add(autre1);
-		autre1.add(this, autre2, autre3);
-		this.autres.add(autre2);	
-		autre2.add(this, autre1, autre3);
+		this.autres.add(autre2);
 		this.autres.add(autre3);
-		autre3.add(this, autre1, autre2);
 	}
 
 	@Override

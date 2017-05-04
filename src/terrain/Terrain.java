@@ -107,7 +107,6 @@ public class Terrain extends Propriete {
 			throw new InvalidParameterException("Terrain.add() -> param null");
 		
 		this.groupe.add(terr);
-		terr.add(this);
 	}
 
 	@Override
