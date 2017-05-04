@@ -27,8 +27,9 @@ public class CarteAnniv extends Carte {
 	public void action(Player joueur, Affichage sys, ArrayList<Case> terrain) {
 		super.action(joueur, sys, terrain);
 		int total = 0;
-		
-		//on enleve 10 � tout le monde
+
+		//on enleve la somme a tout le monde
+		//meme au joueur ayant tire la carte, il se le rendra apres
 		for(Player e : players){
 			e.subMoney(somme);
 			total+=somme;
@@ -40,7 +41,6 @@ public class CarteAnniv extends Carte {
 				+ (total-somme) + "�\n");
 		
 		//puis on ajoute le tout au joueur
-		//(le joueur se paye lui meme 10, ce n'est pas grave)
 		joueur.addMoney(total);
 	}
 
