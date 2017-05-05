@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Jeu{
+	//TODO cheats
 	public static boolean CHEAT_DE = true;
 	public static boolean CHEAT_MONEY = true;
+	public static boolean CHEAT_TOUR_INFINI = true;
 	private ArrayList<Case> terrain;
 	private ArrayList<Player> players;
 	private De de;
@@ -155,9 +157,15 @@ public class Jeu{
 				lance2 = de.jet();
 				
 				//TODO cheat de
-				lance1 = sys.getInt("Premier de ?", 1, 6);
-				lance2 = sys.getInt("Deuxieme de?", 1, 6);
-				
+				if(Jeu.CHEAT_TOUR_INFINI && Jeu.CHEAT_DE){
+					lance1 = sys.getInt("Avancer de ?");
+					lance2 = 0;
+				}
+				else if(Jeu.CHEAT_DE){
+					lance1 = sys.getInt("Premier de ?");
+					lance2 = sys.getInt("Deuxieme de?");
+				}
+					
 				lance = lance1 + lance2;
 				sys.print(joueur.getName() + " lance les des et fait " + lance1 + " et " + lance2 + " (" + lance + ")"
 						+ (lance1==lance2 ? "DOUBLE" : "") + "\n");
@@ -195,29 +203,43 @@ public class Jeu{
 				if(joueur.getPrison()>0)//etre en prison stop le double
 					recommence = false;
 
-				// TODO affichage
-				joueur.trier(terrain);
-				//permet d'afficher les possessions dans l'ordre du terrain
-				//et pas l'ordre d'achat
+				
+				
+				// TODO affichage FAIT EN CONSOLE
 				int rep;
 				do{
 					rep = sys.getInt("\n\nQue souhaitez vous faire ?\n"
 							+ "(Il vous reste " + joueur.getMoney() + "e)\n"
 							+ "1)Gerer les terrains ((de)construire des maison / hypothequer)\n"
 							+ "2)Echanger avec un joueur\n"
-							+ "3) Abandonner la partie\n"
+							+ "3)Abandonner la partie\n"
+							+ "4)Stop le tour\n"//TODO cheat tour infini
 							+ "0)Finir le tour\n"
 							+ "(Si vous finissez avec de l'argent negatif vous perdez)\n", 0, 3);
 					switch (rep) {
 					case 1:
+						joueur.trier(terrain);
+						//permet d'afficher les possessions dans l'ordre du terrain
+						//et pas l'ordre d'achat
 						this.gererTerrain(joueur);
 						break;
 					case 2:
+						joueur.trier(terrain);
+						//permet d'afficher les possessions dans l'ordre du terrain
+						//et pas l'ordre d'achat
 						this.echange(joueur);
 						break;
 					case 3 : 
 						joueur.gameOver();
 						rep=0;
+						break;
+					//TODO cheat tour infini
+					case 0:
+						recommence = true;
+						break;
+					case 4:
+						recommence = false;
+						rep = 0;
 						break;
 					}
 				}while(rep != 0);
@@ -456,7 +478,7 @@ public class Jeu{
 				
 				message+= it + ")" + e.toString() + "\n";
 			}
-			message += " 0) RETOUR (confirmer)";
+			message += "    0) RETOUR (confirmer)";
 			
 			rep = sys.getInt(message, 0, it);
 			if(rep != 0){

@@ -66,10 +66,9 @@ public class Player{
 	public int searchInv(Carte carte){
 		//cherche dans l'inventaire la carte au titre "titre"
 		//si elle n'est pas trouvé, retourne -1
-		for(int i=0; i<inv.size(); i++){
+		for(int i=0; i<inv.size(); i++)
 			if(inv.get(i).equals(carte))
 				return i;
-		}
 		
 		return -1;
 	}
@@ -77,10 +76,9 @@ public class Player{
 	public int searchInv(String titre){
 		//cherche dans l'inventaire la carte au titre "titre"
 		//si elle n'est pas trouvé, retourne -1
-		for(int i=0; i<inv.size(); i++){
+		for(int i=0; i<inv.size(); i++)
 			if(inv.get(i).getTitre().equals(titre))
 				return i;
-		}
 		
 		return -1;
 	}
@@ -88,11 +86,9 @@ public class Player{
 	public int searchPossession(Propriete search){
 		//cherche dans les possession la propriete search
 		//si elle n'est pas trouvé, retourne -1
-		for(int i=0; i<inv.size(); i++){
+		for(int i=0; i<possession.size(); i++)
 			if(possession.get(i).equals(search))
 				return i;
-		}
-		
 		return -1;
 	}
 	
@@ -129,7 +125,7 @@ public class Player{
 		for(Case e : terrain){
 			if(e instanceof Propriete){
 				int tmp = this.searchPossession((Propriete)e);
-				if(tmp > i)
+				if(tmp >= 0)
 					Collections.swap(possession, i++, tmp);
 			}
 		}

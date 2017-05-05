@@ -132,6 +132,7 @@ public class Terrain extends Propriete {
 	public boolean equals(Object obj) {
 		if(!(obj instanceof Terrain))
 			return false;
+		
 		return this.toString().equals(obj.toString());
 	}
 

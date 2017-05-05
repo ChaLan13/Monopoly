@@ -244,12 +244,13 @@ public class Main extends Application {
 	}
 	
 	private void CreationJoueur(ArrayList<Player> players, Affichage sys){
-		//TODO player
+		//TODO END player
 		players.add(new Player("Luky"));
 		players.add(new Player("Cha"));
 		//TODO cheat de
 		Jeu.CHEAT_MONEY = sys.getBool("Voulez-vous avoir 1million?");
 		Jeu.CHEAT_DE = sys.getBool("Voulez-vous choisir le score des de?");
+		Jeu.CHEAT_TOUR_INFINI = sys.getBool("Tour illimite?");
 		/*boolean rep;
 		do{
 			rep = sys.getBool("Voulez-vous ajouter un joueur?");

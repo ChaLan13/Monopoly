@@ -76,14 +76,14 @@ public abstract class Propriete extends Case {
 		if(possesseur == null)
 			this.achat(joueur, sys);
 		else{
-			//TODO affichage(tomber sur un terrain possédé)FAIT EN CONSOLE
+			//TODO affichage(tomber sur un terrain possede)FAIT EN CONSOLE
 			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
 			if(hypotheque){
-				sys.print("Le terrain est hypothéqué!\n");
+				sys.print("Le terrain est hypotheque!\n");
 			}
 			else{
 				int tmp = this.valeur(scoreDe);
-				sys.print("Le montant du loyer est: " + tmp + "€\n");
+				sys.print("Le montant du loyer est: " + tmp + "$\n");
 				joueur.subMoney(tmp);
 				possesseur.addMoney(tmp);
 			}
