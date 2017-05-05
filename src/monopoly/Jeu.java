@@ -171,7 +171,8 @@ public class Jeu{
 						+ (lance1==lance2 ? "DOUBLE" : "") + "\n");
 				if (lance1 == lance2) {
 					nbrDouble++;
-					if (nbrDouble == 3) {
+					//TODO cheat tour infini
+					if (!(Jeu.CHEAT_TOUR_INFINI) && nbrDouble == 3) {
 						// TODO affichage(3e double)FAIT EN CONSOLE
 						sys.print("C'est le 3e double! Prison direct!");
 						joueur.tpto(10, sys, terrain);
