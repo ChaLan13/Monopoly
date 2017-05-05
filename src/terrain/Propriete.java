@@ -38,15 +38,14 @@ public abstract class Propriete extends Case {
 		}
 	}
 
-	public void hypothequer() throws Exception{
+	public void hypothequer(){
 		//prix de l'hypothèque: prix/2
-		if(hypotheque)
-			throw new Exception("Terrain deja hypotheque");
-		if(possesseur == null)
-			throw new Exception("Pas de possesseur");
-		
-		hypotheque = true;
-		possesseur.addMoney(prix/2);
+		if(!hypotheque){
+			hypotheque = true;
+			if(possesseur != null){
+				possesseur.addMoney(prix/2);
+			}
+		}
 	}
 	
 	public void leverHypo(){

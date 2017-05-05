@@ -330,7 +330,8 @@ public class Jeu{
 			echcj1 = new ArrayList<Integer>();
 			echcj2 = new ArrayList<Integer>();
 			
-			String message = "Actuellement vous donnez:\n"
+			String message = "\n\n\n==================================="
+					+ "Actuellement vous donnez:\n"
 					+ "(Attention les maisons disparraissent a l'echange)";
 			if(money <= 0 && echj1.size() == 0)
 				message += "    rien\n";
@@ -400,7 +401,7 @@ public class Jeu{
 						hyp = tmp.estHypo();
 						tmp.clear();
 						if(hyp)
-							try{tmp.hypothequer();}catch(Exception x){}
+							tmp.hypothequer();
 						joueur2.addPossession(tmp);
 					}
 					for(Integer e: echcj1){
@@ -417,7 +418,7 @@ public class Jeu{
 						hyp = tmp.estHypo();
 						tmp.clear();
 						if(hyp)
-							try{tmp.hypothequer();}catch(Exception x){}
+							tmp.hypothequer();
 						joueur1.addPossession(tmp);
 					}
 					for(Integer e: echcj2){

@@ -14,6 +14,17 @@ public class Terrain extends Propriete {
 	public void clear() {
 		super.clear();
 		nbrMaison = 0;
+		for (Terrain e : groupe) {
+			int nbrMaison = e.getNbrMaison();
+			while (nbrMaison > 0) {
+				try {
+					for (Terrain t : groupe)
+						if (e.getNbrMaison() > nbrMaison)
+							e.deconstruire();
+					this.deconstruire();
+				} catch (Exception x) {}
+			}
+		}
 	}
 
 	public Terrain(String name, int prix, int[] valeur, int prixMaison) throws InvalidParameterException {
@@ -87,9 +98,17 @@ public class Terrain extends Propriete {
 	}
 	
 	@Override
-	public void hypothequer() throws Exception {
-		if(nbrMaison > 0)
-			throw new Exception("Maison encore presente sur le terrain");
+	public void hypothequer(){
+		while(nbrMaison > 0){
+			try{
+				for(Terrain e : groupe)
+					if(e.getNbrMaison() > nbrMaison)
+						e.deconstruire();
+				this.deconstruire();
+			}
+			catch(Exception e){
+			}
+		}
 		
 		super.hypothequer();
 	}
