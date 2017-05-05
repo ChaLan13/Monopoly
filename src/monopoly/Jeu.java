@@ -99,7 +99,7 @@ public class Jeu{
 		int nbrDouble = 0;
 		// TODO affichage(Debut du tour)FAIT EN CONSOLE
 		sys.print("\n\n\n====================================");
-		sys.print("C'est au tour de " + joueur.getName() + " (" + joueur.getMoney() + "€)\n");
+		sys.print("C'est au tour de " + joueur.getName() + " (" + joueur.getMoney() + "ï¿½)\n");
 		
 		if(!joueur.aPerdu()){
 			do{
@@ -132,7 +132,7 @@ public class Jeu{
 					if (joueur.getPrison() > 1) {
 						// TODO affichage(demande au joueur de payer 50 pour
 						// sortir) FAIT EN CONSOLE
-						rep = sys.getBool("Voulez-vous payer 50€ pour sortir de prison ?");
+						rep = sys.getBool("Voulez-vous payer 50â‚¬ pour sortir de prison ?");
 						;
 						if (rep/* payer 50 */) {
 							joueur.addMoney(-50);
@@ -141,7 +141,7 @@ public class Jeu{
 					} else if (joueur.getPrison() == 1) {
 						// TODO affichage (popup "vous etes oblige de payer 50
 						// pour sortir" "ok") FAIT EN CONSOLE
-						sys.print("Vous etes oblige de payer 50€ pour sortir de prison. \n");
+						sys.print("Vous etes oblige de payer 50â‚¬ pour sortir de prison. \n");
 						joueur.addMoney(-50);
 						joueur.setPrison(0);
 					}
@@ -201,14 +201,19 @@ public class Jeu{
 							+ "(Il vous reste " + joueur.getMoney() + "e)\n"
 							+ "1)Gerer les terrains ((de)construire des maison / hypothequer)\n"
 							+ "2)Echanger avec un joueur\n"
+							+"3) Abandonner la partie\n"
 							+ "0)Finir le tour\n"
-							+ "(Si vous finissez avec de l'argent negatif vous perdez)\n", 0, 2);
+							+ "(Si vous finissez avec de l'argent negatif vous perdez)\n", 0, 3);
 					switch (rep) {
 					case 1:
 						this.gererTerrain(joueur);
 						break;
 					case 2:
 						this.echange(joueur);
+						break;
+					case 3 : 
+						joueur.gameOver();
+						rep=0;
 						break;
 					}
 				}while(rep != 0);
@@ -247,8 +252,8 @@ public class Jeu{
 		String message = "Que voulez-vous faire?\n"
 				+ tmp.toString() + "\n"
 				+"1) "
-				+ (tmp.estHypo()? "Lever l'hypotheque (" + 11*tmp.getPrix()/20 +"€)"
-						: "Hypothequer (" + tmp.getPrix()/2 + "€)" )
+				+ (tmp.estHypo()? "Lever l'hypotheque (" + 11*tmp.getPrix()/20 +"ï¿½)"
+						: "Hypothequer (" + tmp.getPrix()/2 + "ï¿½)" )
 				+ "\n";
 		
 		if(estTerrain)
@@ -299,7 +304,7 @@ public class Jeu{
 		for (Player e : players) {
 			if (!e.aPerdu() && !e.equals(joueur)) {
 				it++;
-				message += it + ") " + e.getName() + " (" + e.getMoney() + "€)\n";
+				message += it + ") " + e.getName() + " (" + e.getMoney() + "ï¿½)\n";
 				TMLP.add(e);
 			}
 		}
@@ -327,7 +332,7 @@ public class Jeu{
 				message += "    rien\n";
 			else{
 				if(money > 0)
-					message += "    " + money + "€\n";
+					message += "    " + money + "ï¿½\n";
 				for(Propriete e : echj1)
 					message += "    " + e.toString() + "\n";
 				
@@ -341,7 +346,7 @@ public class Jeu{
 				message += "    rien\n";
 			else{
 				if(money < 0)
-					message += "    " + (-money) + "€\n";
+					message += "    " + (-money) + "ï¿½\n";
 				for(Propriete e : echj2)
 					message += "    " + e.toString() + "\n";
 				
