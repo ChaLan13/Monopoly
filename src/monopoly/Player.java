@@ -26,7 +26,11 @@ public class Player{
 	
 	public void init(){
 		pos = 0;
-		money = 1500;
+		//TODO cheat money player
+		if(Jeu.CHEAT_MONEY)
+			money = 1500000;
+		else
+			money = 1500;
 		prison = 0;
 		inv.clear();
 		possession.clear();
