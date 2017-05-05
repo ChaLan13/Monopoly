@@ -16,7 +16,6 @@ public abstract class Propriete extends Case {
 	public Propriete(String name, int prix)throws InvalidParameterException {
 		super(name);
 		setPrix(prix);
-		init();
 	}
 	
 	@Override

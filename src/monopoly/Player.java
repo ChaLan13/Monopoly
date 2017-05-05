@@ -21,7 +21,6 @@ public class Player{
 		
 	public Player(String pseudo)throws InvalidParameterException{
 		setNom(pseudo);
-		init();
 	}
 	
 	public void init(){
