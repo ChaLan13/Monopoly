@@ -322,15 +322,15 @@ public class Jeu{
 	private void echangeJoueur(Player joueur1, Player joueur2){
 		int rep = 0;
 		int money = 0;
+		ArrayList<Propriete> echj1, echj2;
+		ArrayList<Carte> echcj1, echcj2;
+		echj1 = new ArrayList<Propriete>();
+		echj2 = new ArrayList<Propriete>();
+		echcj1 = new ArrayList<Carte>();
+		echcj2 = new ArrayList<Carte>();
+		
 		do{
-			ArrayList<Integer> echj1, echj2;
-			ArrayList<Integer> echcj1, echcj2;
-			echj1 = new ArrayList<Integer>();
-			echj2 = new ArrayList<Integer>();
-			echcj1 = new ArrayList<Integer>();
-			echcj2 = new ArrayList<Integer>();
-			
-			String message = "\n\n\n==================================="
+			String message = "\n\n\n===================================\n"
 					+ "Actuellement vous donnez:\n"
 					+ "(Attention les maisons disparraissent a l'echange)";
 			if(money <= 0 && echj1.size() == 0)
@@ -338,11 +338,11 @@ public class Jeu{
 			else{
 				if(money > 0)
 					message += "    " + money + "$\n";
-				for(Integer e : echj1)
-					message += "    " + joueur1.getPossession(e).toString() + "\n";
-				
-				for(Integer e: echcj1)
-					message += "    " + joueur1.getInv(e).getTitre() + "\n";
+				for(Propriete e : echj1)
+					message += "    " + e.toString() + "\n";
+
+				for(Carte e: echcj1)
+					message += "    " + e.getTitre() + "\n";
 			}
 			
 			message += "\nEt " + joueur2.getName() + " vous donne:\n"
@@ -352,11 +352,12 @@ public class Jeu{
 			else{
 				if(money < 0)
 					message += "    " + (-money) + "$\n";
-				for(Integer e : echj2)
-					message += "    " + joueur2.getPossession(e).toString() + "\n";
 				
-				for(Integer e: echcj1)
-					message += "    " + joueur2.getInv(e).getTitre() + "\n";
+				for(Propriete e : echj2)
+					message += "    " + e.toString() + "\n";
+
+				for(Carte e: echcj1)
+					message += "    " + e.getTitre() + "\n";
 			}
 			
 			//TODO affichage(echange)FAIT EN CONSOLE
@@ -394,37 +395,33 @@ public class Jeu{
 					joueur2.addMoney(money);
 					
 					//gerer le passage de l'inventaire du joueur 1 au joueur 2
-					for(Integer e: echj1){
-						Propriete tmp;
+					for(Propriete e: echj1){
 						boolean hyp;
-						tmp = joueur1.popPossession(e);
-						hyp = tmp.estHypo();
-						tmp.clear();
+						joueur1.popPossession(joueur1.searchPossession(e));
+						hyp = e.estHypo();
+						e.clear();
 						if(hyp)
-							tmp.hypothequer();
-						joueur2.addPossession(tmp);
+							e.hypothequer();
+						joueur2.addPossession(e);
 					}
-					for(Integer e: echcj1){
-						Carte tmp;
-						tmp = joueur1.popInv(e);
-						joueur2.addInv(tmp);
+					for(Carte e: echcj1){
+						joueur1.popInv(joueur1.searchInv(e));
+						joueur2.addInv(e);
 					}
 					
 					//gerer le passage de l'inventaire du joueur2 au joueur 1
-					for(Integer e: echj2){
-						Propriete tmp;
+					for(Propriete e: echj2){
 						boolean hyp;
-						tmp = joueur2.popPossession(e);
-						hyp = tmp.estHypo();
-						tmp.clear();
+						joueur2.popPossession(joueur2.searchPossession(e));
+						hyp = e.estHypo();
+						e.clear();
 						if(hyp)
-							tmp.hypothequer();
-						joueur1.addPossession(tmp);
+							e.hypothequer();
+						joueur1.addPossession(e);
 					}
-					for(Integer e: echcj2){
-						Carte tmp;
-						tmp = joueur2.popInv(e);
-						joueur1.addInv(tmp);
+					for(Carte e: echcj2){
+						joueur2.popInv(joueur2.searchInv(e));
+						joueur1.addInv(e);
 					}
 				}
 				rep = 0;
@@ -432,7 +429,7 @@ public class Jeu{
 			}
 		}while(rep != 0);
 	}
-	private void echangerquoi(Player joueur, ArrayList<Integer> ech, ArrayList<Integer> echc){
+	private void echangerquoi(Player joueur, ArrayList<Propriete> ech, ArrayList<Carte> echc){
 		int rep = 0;
 		do{
 			String message = "Inventaire disponible:\n"
@@ -441,7 +438,7 @@ public class Jeu{
 			int it = 0;
 			for(Propriete e : joueur.getPossession()){
 				it++;
-				if(ech.contains(it-1))
+				if(ech.contains(e))
 					message+="(x) ";
 				else
 					message+="( ) ";
@@ -452,7 +449,7 @@ public class Jeu{
 			//sauvegarder quand on passe d'une propriete a une carte
 			for(Carte e : joueur.getInv()){
 				it++;
-				if(echc.contains(it-1))
+				if(echc.contains(e))
 					message+="(x) ";
 				else
 					message+="( ) ";
@@ -464,16 +461,18 @@ public class Jeu{
 			rep = sys.getInt(message, 0, it);
 			if(rep != 0){
 				if(rep <= tmp){//propriete
-					if(ech.contains(rep-1))
-						ech.remove(rep-1);
+					Propriete TMP = joueur.getPossession(rep-1);
+					if(ech.contains(TMP))
+						ech.remove(TMP);
 					else
-						ech.add(rep-1);
+						ech.add(TMP);
 				}
 				else{//carte
-					if(echc.contains(rep-tmp-1))
-						echc.remove(rep-tmp-1);
+					Carte TMP = joueur.getInv(rep-tmp-1);
+					if(echc.contains(TMP))
+						echc.remove(TMP);
 					else
-						echc.add(rep-tmp-1);
+						echc.add(TMP);
 				}
 			}
 		}while(rep != 0);
