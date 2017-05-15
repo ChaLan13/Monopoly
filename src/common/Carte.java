@@ -1,3 +1,14 @@
+/**
+  <b>class Carte</b>
+ * <p>@see CarteAnniv, CarteChoix, CarteMono, CarteReparation, CarteTirer</p>
+ * <p>@author SCHWAB Lucas, LANUEL Charlotte</p>
+ *<p> @version final 1.0</p>
+ * 
+*/
+
+
+
+
 package common;
 
 
@@ -7,6 +18,11 @@ import java.util.ArrayList;
 import fenetre.Affichage;
 import monopoly.Player;
 
+/** <b>Default constructor</b>
+ * <p>Construit une carte par defaut</p>
+ * @author SCHWAB Lucas, LANUEL Charlotte
+ * @see other constructor Carte
+ */
 public class Carte{
 	public static final String SORTIE_PRISON_TITRE = "VOUS ETES LIBERE DE PRISON";
 	public static final String PRISON_TITRE = "Allez en prison.";
@@ -17,16 +33,30 @@ public class Carte{
 	private Paquet paquet;
 	private boolean special;
 	
-	
+	/**
+	 * <b><p>Default constructor for special cards</p></b>
+	 * <p>Build a card</p>
+	 * <p>@param special, titre, desc</p>
+	 * <p>@throws InvalidParameterException if titre or desc is null</p>
+	 */
 	public Carte(boolean special, String titre, String desc)throws InvalidParameterException{
 		setTitre(titre);
 		setDesc(desc);
 		this.special = special;
 	}
+
 	public Carte(String titre, String desc)throws InvalidParameterException{
 		this(false, titre, desc);
 	}
 	
+	/**
+	 * <b>Void action</b>
+	 * <p>Player draws a card and print the card's text</p>
+	 *<p> @param joueur</p>
+	 * <p>@param sys</p>
+	 * <p>@param terrain</p>
+	 * <p>@throws InvalidParameterException from joueur, affichage (sys), terrain if null</p>
+	 */
 	public void action(Player joueur, Affichage sys, ArrayList<Case> terrain) throws InvalidParameterException{
 		if(joueur == null)
 			throw new InvalidParameterException("Carte.action() -> joueur null");
@@ -39,7 +69,7 @@ public class Carte{
 		sys.print(joueur.getName() + " tire une carte " + this.getPaquet().getName() + "\n"
 				+ this.toString() + "\n");
 	}
-
+	
 	public void returnPaquet(){
 		paquet.add(this);
 	}
