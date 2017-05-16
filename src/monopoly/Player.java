@@ -19,9 +19,16 @@ public class Player{
 	private ArrayList<Carte> inv = new ArrayList<Carte>();//inventaire
 	private ArrayList<Propriete> possession = new ArrayList<Propriete>();//terrains
 		
+	//======================
+	//=====Constructeur=====
+	//======================
 	public Player(String pseudo)throws InvalidParameterException{
 		setNom(pseudo);
 	}
+	
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	
 	public void init(){
 		pos = 0;
@@ -92,6 +99,35 @@ public class Player{
 		return -1;
 	}
 	
+	public void gameOver(){
+		perdu = true;
+		clearInv();
+		clearPossession();
+	}
+	
+	public void trierPossession(ArrayList<Case> terrain){
+		int i = 0;
+		for(Case e : terrain){
+			if(e instanceof Propriete){
+				int tmp = this.searchPossession((Propriete)e);
+				if(tmp >= 0)
+					Collections.swap(possession, i++, tmp);
+			}
+		}
+	}
+	
+	public void prisonMoins(Affichage sys){
+		if(prison > 0){
+			//TODO affichage(Decrementation prison)FAIT EN CONSOLE
+			prison--;
+			sys.print("Il te reste " + prison + " tour" + (prison>1?"s":"") + " en prison.\n");
+		}
+	}
+	
+	//===================
+	//=====Get & Set=====
+	//===================
+	
 	public void clearInv(){
 		for(Carte e : inv){
 			e.returnPaquet();
@@ -106,12 +142,6 @@ public class Player{
 		possession.clear();
 	}
 	
-	public void gameOver(){
-		perdu = true;
-		clearInv();
-		clearPossession();
-	}
-	
 	public void addPossession(Propriete prop)throws InvalidParameterException{
 		if(prop == null)
 			throw new InvalidParameterException("Player.addPossession() -> prop null");
@@ -120,45 +150,16 @@ public class Player{
 		prop.setPossesseur(this);
 	}
 	
-	public void trier(ArrayList<Case> terrain){
-		int i = 0;
-		for(Case e : terrain){
-			if(e instanceof Propriete){
-				int tmp = this.searchPossession((Propriete)e);
-				if(tmp >= 0)
-					Collections.swap(possession, i++, tmp);
-			}
-		}
-	}
+	public String getName() {return name;}
 
-	public String getName() {
-		return name;
-	}
+	public int getPos() {return pos;}
 
-	public int getPos() {
-		return pos;
-	}
+	public int getMoney() {return money;}
 
-	public int getMoney() {
-		return money;
-	}
-
-	public int getPrison() {
-		return prison;
-	}
+	public int getPrison() {return prison;}
 	
-	public void setPrison(int prison) {
-		this.prison = prison;
-	}
+	public void setPrison(int prison) {this.prison = prison;}
 	
-	public void prisonMoins(Affichage sys){
-		if(prison > 0){
-			//TODO affichage(Decrementation prison)FAIT EN CONSOLE
-			prison--;
-			sys.print("Il te reste " + prison + " tour" + (prison>1?"s":"") + " en prison.\n");
-		}
-	}
-
 	public void addInv(Carte carte)throws InvalidParameterException{
 		if(carte == null)
 			throw new InvalidParameterException("Player.addInv() - carte null");
@@ -209,12 +210,24 @@ public class Player{
 		return possession.remove(num);
 	}
 
+	//===========================
+	//=====equals & toString=====
+	//===========================
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Player))
+		if(obj == null)
 			return false;
-		return this.toString().equals(obj.toString());
-	}//faire en sorte de ne pas avoir 2 joueurs ayant le meme pseudo sinon bug
+		if(obj == this)
+			return true;
+		
+		//comparaison des parametres impossibles
+		//si 2 joueurs ont le meme nom et le meme argent
+		//ils ne sont pourtant pas egaux
+		
+		//generation d'un code pour les differencier inutile:
+		//l'adresse memoire fonctionne pareil
+		return false;
+	}
 
 	@Override
 	public String toString() {

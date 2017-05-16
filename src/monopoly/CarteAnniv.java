@@ -19,6 +19,9 @@ public class CarteAnniv extends Carte {
 	private ArrayList<Player> players;
 	private int somme;
 	
+	//=======================
+	//=====Constructeur=====
+	//=======================
 	/**
 	 * <p>Constructor</p>
 	 * <p>Build a new CarteAnniv (the only one in the game)</p>
@@ -40,7 +43,9 @@ public class CarteAnniv extends Carte {
 		this.somme = somme;
 	}
 
-
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	/**
 	 * <p>void action</p>
 	 * <p>Defines the action done by the card : when you draw it, every players must pay you 10</p>
@@ -68,7 +73,15 @@ public class CarteAnniv extends Carte {
 		//puis on ajoute le tout au joueur
 		joueur.addMoney(total);
 	}
-
+	
+	//===================
+	//=====Get & Set=====
+	//===================
+	//aucun, seuls ceux de la classe superieure "Carte"
+	
+	//===========================
+	//=====equals & toString=====
+	//===========================
 	/**
 	 * <p>boolean equals</p>
 	 * <p>Compares two CarteAnniv and return true if they are the same</p>
@@ -79,8 +92,19 @@ public class CarteAnniv extends Carte {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
 		if(!(obj instanceof CarteAnniv))
 			return false;
-		return this.toString().equals(obj.toString());
+		
+		CarteAnniv o = (CarteAnniv) obj;
+		return this.somme == o.somme
+				&& this.getTitre().equals(o.getTitre())
+				&& this.getDesc().equals(o.getDesc())
+				&& this.isSpecial() == o.isSpecial();
 	}
+	
+	//toString de la classe superieure "Carte"
 }

@@ -31,8 +31,11 @@ public class Carte{
 	private String titre;
 	private String desc;
 	private Paquet paquet;
-	private boolean special;
+	private boolean special;//une carte speciale ne sera pas affichée
 	
+	//=======================
+	//=====Constructeurs=====
+	//=======================
 	/**
 	 * <b><p>Default constructor for special cards</p></b>
 	 * <p>Build a card</p>
@@ -49,6 +52,9 @@ public class Carte{
 		this(false, titre, desc);
 	}
 	
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	/**
 	 * <b>Void action</b>
 	 * <p>Player draws a card and print the card's text</p>
@@ -66,14 +72,23 @@ public class Carte{
 			throw new InvalidParameterException("Carte.action() -> terrain null");
 		
 		//TODO affichage(afficher la carte et la description)FAIT EN CONSOLE
-		sys.print(joueur.getName() + " tire une carte " + this.getPaquet().getName() + "\n"
-				+ this.toString() + "\n");
+		//seulement si la carte n'est pas speciale
+		if(this.isntSpecial())
+			sys.print(joueur.getName() + " tire une carte " + this.getPaquet().getName() + "\n"
+					+ this.toString() + "\n");
 	}
 	
 	public void returnPaquet(){
-		paquet.add(this);
+		//remet la carte dans son paquet d'origine
+		//pas d'exception si pas de paquet
+		if(paquet != null)
+			paquet.add(this);
 	}
 
+	//===================
+	//=====SET & GET=====
+	//===================
+	
 	private void setTitre(String titre)throws InvalidParameterException{
 		if(titre == null)
 			throw new InvalidParameterException("Carte.setTitre() - titre null");
@@ -86,31 +101,34 @@ public class Carte{
 		this.desc = desc;
 	}
 
-	public Paquet getPaquet() {
-		return paquet;
-	}
+	public Paquet getPaquet() {return paquet;}
 
-	public void setPaquet(Paquet paquet) {
-		this.paquet = paquet;
-	}
+	//pas de test null si on l'enleve du paquet
+	public void setPaquet(Paquet paquet) {this.paquet = paquet;}
 	
-	public String getTitre() {
-		return titre;
-	}
+	public String getTitre() {return titre;}
 
-	public String getDesc() {
-		return desc;
-	}
+	public String getDesc() {return desc;}
 	
-	public boolean isntSpecial(){
-		return !special;
-	}
+	public boolean isSpecial(){return special;}
+	public boolean isntSpecial(){return !special;}
+	
+	//===========================
+	//=====equals & toString=====
+	//===========================
 
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
 		if(!(obj instanceof Carte))
 			return false;
-		return (obj.toString().equals(this.toString())) && (this.getPaquet().equals(((Carte) obj).getPaquet()));
+		Carte o = (Carte) obj;
+		return this.titre.equals(o.titre)
+				&& this.desc.equals(o.desc)
+				&& this.special == o.special;
 	}
 
 	@Override

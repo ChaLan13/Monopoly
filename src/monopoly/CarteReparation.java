@@ -13,7 +13,10 @@ public class CarteReparation extends Carte {
 	private int prixMaison;
 	private int prixHotel;
 	private Parc parc;
-
+	
+	//=======================
+	//=====Constructeur=====
+	//=======================
 	public CarteReparation(String titre, String desc,Parc parc, int prixMaison, int prixHotel) throws InvalidParameterException {
 		super(titre, desc);
 		if(prixMaison < 0)
@@ -27,7 +30,10 @@ public class CarteReparation extends Carte {
 		this.prixMaison = prixMaison;
 		this.prixHotel = prixHotel;
 	}
-
+	
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	@Override
 	public void action(Player joueur, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
 		super.action(joueur, sys, terrain);
@@ -49,12 +55,29 @@ public class CarteReparation extends Carte {
 		joueur.subMoney(somme);
 		parc.addMoney(somme, sys);
 	}
-
+	
+	//===================
+	//=====Get & Set=====
+	//===================
+	
+	//aucun a part ceux de la classe superieure Carte
+	
+	//===========================
+	//=====equals & toString=====
+	//===========================
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof CarteReparation))
+		if(obj == null)
 			return false;
-		return this.toString().equals(obj.toString());
+		if(obj == this)
+			return true;
+		if(!(obj instanceof CarteMono))
+			return false;
+		CarteReparation o = (CarteReparation) obj;
+		return this.getTitre().equals(o.getTitre())
+				&& this.getDesc().equals(o.getDesc())
+				&& this.prixHotel == o.prixHotel
+				&& this.prixMaison == o.prixMaison;
 	}
 	
 }

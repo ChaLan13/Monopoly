@@ -10,24 +10,16 @@ public class Gare extends Propriete {
 	private ArrayList<Gare> autres = new ArrayList<Gare>();
 	private int val[] = {25, 50, 100, 200};
 	
-	
+	//======================
+	//=====Constructeur=====
+	//======================
 	public Gare(String name) throws InvalidParameterException {
 		super(name, 200);
 	}
 	
-	public void add(Gare autre1, Gare autre2, Gare autre3) throws InvalidParameterException {
-		if(autre1 == null)
-			throw new InvalidParameterException("Gare.add() -> Param NULL");
-		if(autre2 == null)
-			throw new InvalidParameterException("Gare.add() -> Param NULL");
-		if(autre3 == null)
-			throw new InvalidParameterException("Gare.add() -> Param NULL");
-		
-		this.autres.add(autre1);
-		this.autres.add(autre2);
-		this.autres.add(autre3);
-	}
-
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	@Override
 	int valeur(int scoreDe) {
 		int i=0;
@@ -38,8 +30,6 @@ public class Gare extends Propriete {
 		return val[i];
 	}
 	
-	
-
 	@Override
 	public void actionCarte(Player joueur, Affichage sys) {
 		if(joueur == null)
@@ -62,11 +52,42 @@ public class Gare extends Propriete {
 			}
 		}
 	}
+	//===================
+	//=====Get & Set=====
+	//===================
+	public void add(Gare autre1, Gare autre2, Gare autre3) throws InvalidParameterException {
+		if(autre1 == null)
+			throw new InvalidParameterException("Gare.add() -> Param NULL");
+		if(autre2 == null)
+			throw new InvalidParameterException("Gare.add() -> Param NULL");
+		if(autre3 == null)
+			throw new InvalidParameterException("Gare.add() -> Param NULL");
+		
+		this.autres.add(autre1);
+		this.autres.add(autre2);
+		this.autres.add(autre3);
+	}
 
+	// ===========================
+	// =====equals & toString=====
+	// ===========================
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Gare))
+		if (obj == null)
 			return false;
-		return this.toString().equals(obj.toString());
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Compagnie))
+			return false;
+
+		Gare o = (Gare) obj;
+		return this.getName().equals(o.getName())
+				&& this.getPossesseur().equals(o.getPossesseur())
+				&& this.estHypo() == o.estHypo() 
+				&& this.getPrix() == o.getPrix();
+		// comparaison de "autres" impossible
+		// -> boucle infinie
 	}
+
+	// toString de la classe superieur Propriete
 }

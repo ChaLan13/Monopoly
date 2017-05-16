@@ -9,18 +9,18 @@ import monopoly.Player;
 public class Compagnie extends Propriete {
 	Compagnie autre;
 	De de;
-
+	
+	//======================
+	//=====Constructeur=====
+	//======================
 	public Compagnie(String name) throws InvalidParameterException {
 		super(name, 150);
 		de = new De(2,12);
 	}
 	
-	public void add(Compagnie autre)throws InvalidParameterException{
-		if(autre == null)
-			throw new InvalidParameterException("Compagnie.add() -> autre = null");
-		this.autre = autre;
-	}
-
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	@Override
 	public int valeur(int scoreDe) {
 		if(this.getPossesseur() == autre.getPossesseur()){
@@ -53,12 +53,36 @@ public class Compagnie extends Propriete {
 			}
 		}
 	}
+	
+	//===================
+	//=====Get & Set=====
+	//===================
+	public void add(Compagnie autre)throws InvalidParameterException{
+		if(autre == null)
+			throw new InvalidParameterException("Compagnie.add() -> autre = null");
+		this.autre = autre;
+	}
 
+	//===========================
+	//=====equals & toString=====
+	//===========================
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
 		if(!(obj instanceof Compagnie))
 			return false;
-		return this.toString().equals(obj.toString());
+		
+		Compagnie o = (Compagnie) obj;
+		return this.getName().equals(o.getName())
+				&& this.getPossesseur().equals(o.getPossesseur())
+				&& this.estHypo() == o.estHypo()
+				&& this.getPrix() == o.getPrix();
+		//comparaison de "autre" impossible
+		//-> boucle infinie
 	}
 	
+	//toString de la classe superieur Propriete
 }
