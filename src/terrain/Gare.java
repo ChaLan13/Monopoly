@@ -52,6 +52,7 @@ public class Gare extends Propriete {
 			}
 		}
 	}
+	
 	//===================
 	//=====Get & Set=====
 	//===================

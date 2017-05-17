@@ -1,4 +1,4 @@
-package monopoly;
+package cartes;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import common.Carte;
 import common.Case;
 import fenetre.Affichage;
+import monopoly.Player;
 
 /**
  * <b>Class Carte Anniv</b>

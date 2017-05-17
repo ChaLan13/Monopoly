@@ -68,7 +68,7 @@ public class Paquet{
 		
 		Paquet o = (Paquet) obj;
 		return this.name.equals(o.name)
-				&& this.pile.equals(o.pile);
+				&& this.pile.size() == o.pile.size();
 	}
 
 	@Override

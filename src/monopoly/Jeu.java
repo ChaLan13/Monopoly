@@ -282,9 +282,10 @@ public class Jeu{
 				joueur.gameOver();
 				rep=0;
 				break;
-			//TODO cheat tour infini
 			case 0:
-				recommence = true;
+				//TODO cheat tour infini
+				if(Jeu.CHEAT_TOUR_INFINI)
+					recommence = true;
 				break;
 			case 4:
 				recommence = false;
@@ -301,7 +302,8 @@ public class Jeu{
 			// TODO affichage(gere LES terrains)FAIT EN CONSOLE
 			sys.print("Vous ne possedez pas de terrain!");
 		} else {
-			String message = "Quel terrain voulez vous gerer?\n" + "(les - signifient que le terrain est hypotheque)\n";
+			String message = "Quel terrain voulez vous gerer?\n" 
+				+ "(les - signifient que le terrain est hypotheque)\n";
 			int it = 0;
 			for (Propriete e : tmp) {
 				it++;

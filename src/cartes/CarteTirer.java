@@ -1,4 +1,4 @@
-package monopoly;
+package cartes;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import common.Carte;
 import common.Case;
 import common.Paquet;
 import fenetre.Affichage;
+import monopoly.Player;
 
 public class CarteTirer extends Carte {
 	Paquet autre;
@@ -65,4 +66,5 @@ public class CarteTirer extends Carte {
 				&& this.autre.equals(o.autre);
 	}
 
+	//toString de la classe superieure Carte
 }

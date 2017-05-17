@@ -11,7 +11,9 @@ public class Impot extends Case {
 	Parc parc;
 	int val;
 	
-
+	//======================
+	//=====Constructeur=====
+	//======================
 	public Impot(String name,Parc parc, int val)throws InvalidParameterException{
 		super(name);
 		if(val < 0)
@@ -23,6 +25,9 @@ public class Impot extends Case {
 		this.parc = parc;
 	}
 
+	//=============================
+	//=====Fonctions speciales=====
+	//=============================
 	@Override
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
 		//TODO affichage(case impot)FAIIT EN CONSOLE
@@ -33,11 +38,28 @@ public class Impot extends Case {
 			parc.addMoney(val, sys);
 		}
 	}
+	
+	//===================
+	//=====Get & Set=====
+	//===================
+	
+	//aucun, seuls ceux de la classe superieure "Propriete"
 
+	// ===========================
+	// =====equals & toString=====
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
 		if(!(obj instanceof Impot))
 			return false;
-		return this.toString().equals(obj.toString());
+		Impot o = (Impot) obj;
+		return this.val == o.val
+				&& this.getName().equals(o.getName())
+				&& this.parc.equals(o.parc);
 	}
+	
+	//toString de la classe superieure "Propriete"
 }

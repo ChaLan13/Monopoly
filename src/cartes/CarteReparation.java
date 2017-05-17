@@ -1,4 +1,4 @@
-package monopoly;
+package cartes;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import common.Carte;
 import common.Case;
 import fenetre.Affichage;
+import monopoly.Player;
 import terrain.Parc;
 import terrain.Terrain;
 
@@ -80,4 +81,5 @@ public class CarteReparation extends Carte {
 				&& this.prixMaison == o.prixMaison;
 	}
 	
+	//toString de la classe superieure Cartes
 }

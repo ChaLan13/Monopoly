@@ -1,13 +1,13 @@
 //imports
 import java.util.ArrayList;
 
+import cartes.CarteAnniv;
+import cartes.CarteChoix;
+import cartes.CarteMono;
+import cartes.CarteReparation;
+import cartes.CarteTirer;
 import common.Carte;
 import common.Case;
-import monopoly.CarteAnniv;
-import monopoly.CarteChoix;
-import monopoly.CarteMono;
-import monopoly.CarteReparation;
-import monopoly.CarteTirer;
 import monopoly.Jeu;
 import monopoly.Player;
 import terrain.Compagnie;
