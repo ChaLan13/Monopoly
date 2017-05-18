@@ -15,9 +15,9 @@ public class CarteReparation extends Carte {
 	private int prixHotel;
 	private Parc parc;
 	
-	//=======================
-	//=====Constructeur=====
-	//=======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public CarteReparation(String titre, String desc,Parc parc, int prixMaison, int prixHotel) throws InvalidParameterException {
 		super(titre, desc);
 		if(prixMaison < 0)
@@ -33,7 +33,7 @@ public class CarteReparation extends Carte {
 	}
 	
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	@Override
 	public void action(Player joueur, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
@@ -57,15 +57,15 @@ public class CarteReparation extends Carte {
 		parc.addMoney(somme, sys);
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	//aucun a part ceux de la classe superieure Carte
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null)

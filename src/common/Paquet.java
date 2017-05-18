@@ -11,9 +11,9 @@ public class Paquet{
 	private String name;
 	private ArrayList<Carte> pile = new ArrayList<Carte>();
 	
-	//=======================
-	//=====Constructeur=====
-	//=======================
+	//========================
+	//===== Constructeur =====
+	//======================== 
 	
 	public Paquet(String name) throws InvalidParameterException{
 		if(name == null)
@@ -26,7 +26,7 @@ public class Paquet{
 	}
 	
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	
 	public Carte tirer() throws IndexOutOfBoundsException{
@@ -39,9 +39,9 @@ public class Paquet{
 		Collections.shuffle(pile);
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	public String getName(){return name;}
 	
@@ -53,9 +53,9 @@ public class Paquet{
 		carte.setPaquet(this);
 	}
 
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	
 	@Override
 	public boolean equals(Object obj) {

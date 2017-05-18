@@ -10,17 +10,17 @@ public class Compagnie extends Propriete {
 	Compagnie autre;
 	De de;
 	
-	//======================
-	//=====Constructeur=====
-	//======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Compagnie(String name) throws InvalidParameterException {
 		super(name, 150);
 		de = new De(2,12);
 	}
 	
-	//=============================
-	//=====Fonctions speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	@Override
 	public int valeur(int scoreDe) {
 		if(this.getPossesseur() == autre.getPossesseur()){
@@ -54,18 +54,18 @@ public class Compagnie extends Propriete {
 		}
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	public void add(Compagnie autre)throws InvalidParameterException{
 		if(autre == null)
 			throw new InvalidParameterException("Compagnie.add() -> autre = null");
 		this.autre = autre;
 	}
 
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null)

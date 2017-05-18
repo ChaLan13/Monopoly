@@ -32,9 +32,9 @@ public class Jeu{
 	private ArrayList<Carte> echcj1;
 	private ArrayList<Carte> echcj2;
 	
-	//=======================
-	//=====Constructeur=====
-	//=======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Jeu(Affichage sys, ArrayList<Case> terrain, ArrayList<Player> players)throws InvalidParameterException {
 		if(sys == null)
 			throw new InvalidParameterException("Jeu constructeur -> Affichage null");
@@ -48,9 +48,9 @@ public class Jeu{
 		this.terrain = terrain;
 	}
 	
-	//=============================
-	//=====Fonctions speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	
 	//Lancement d'une partie
 	public void debut(){
@@ -114,9 +114,9 @@ public class Jeu{
 		return null;
 	}
 	
-	//===============================
-	//=====Deroulement d'un tour=====
-	//===============================
+	//=================================
+	//===== Deroulement d'un tour =====
+	//=================================
 	private void tour(int num)throws InvalidParameterException{
 		if(num > players.size()-1 || num < 0)
 			throw new InvalidParameterException("Jeu.tour() - numero du joueur invalide");
@@ -250,9 +250,9 @@ public class Jeu{
 			recommence = false;
 	}
 	
-	//=========================
-	//=====Fonctions Menus=====
-	//=========================
+	//===========================
+	//===== Fonctions Menus =====
+	//===========================
 	private void menu(Player joueur){
 		// TODO affichage FAIT EN CONSOLE
 		int rep = 0;

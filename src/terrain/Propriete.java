@@ -13,9 +13,39 @@ public abstract class Propriete extends Case {
 	private Player possesseur;
 	private int prix;
 	
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Propriete(String name, int prix)throws InvalidParameterException {
 		super(name);
 		setPrix(prix);
+	}
+	
+	//===============================
+	//===== Fonctions Speciales =====
+	//===============================
+	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
+		if(joueur == null)
+			throw new InvalidParameterException("Propriete.action() - joueur null");
+		if(scoreDe < 0)
+			throw new InvalidParameterException("Propriete.action() - score de invalide");
+		
+		
+		if(possesseur == null)
+			this.achat(joueur, sys);
+		else{
+			//TODO affichage(tomber sur un terrain possede)FAIT EN CONSOLE
+			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
+			if(hypotheque){
+				sys.print("Le terrain est hypotheque!\n");
+			}
+			else{
+				int tmp = this.valeur(scoreDe);
+				sys.print("Le montant du loyer est: " + tmp + "$\n");
+				joueur.subMoney(tmp);
+				possesseur.addMoney(tmp);
+			}
+		}
 	}
 	
 	@Override
@@ -66,32 +96,15 @@ public abstract class Propriete extends Case {
 		}
 	}
 	
-	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain)throws InvalidParameterException {
-		if(joueur == null)
-			throw new InvalidParameterException("Propriete.action() - joueur null");
-		if(scoreDe < 0)
-			throw new InvalidParameterException("Propriete.action() - score de invalide");
-		
-		
-		if(possesseur == null)
-			this.achat(joueur, sys);
-		else{
-			//TODO affichage(tomber sur un terrain possede)FAIT EN CONSOLE
-			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
-			if(hypotheque){
-				sys.print("Le terrain est hypotheque!\n");
-			}
-			else{
-				int tmp = this.valeur(scoreDe);
-				sys.print("Le montant du loyer est: " + tmp + "$\n");
-				joueur.subMoney(tmp);
-				possesseur.addMoney(tmp);
-			}
-		}
-	}
-	
 	abstract int valeur(int scoreDe);
 	
+	public void clear(){
+		possesseur = null;
+		this.leverHypo();
+	}
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	private void setPrix(int prix)throws InvalidParameterException {
 		if(prix < 0){
 			throw new InvalidParameterException("Propriete.action() - Prix negatif");
@@ -107,11 +120,6 @@ public abstract class Propriete extends Case {
 		return possesseur;
 	}
 	
-	public void clear(){
-		possesseur = null;
-		this.leverHypo();
-	}
-
 	public void setPossesseur(Player possesseur)throws InvalidParameterException{
 		if(possesseur == null)
 			throw new InvalidParameterException("Propriete.setPossesseur() -> possesseur null");
@@ -121,12 +129,24 @@ public abstract class Propriete extends Case {
 	public int getPrix() {
 		return prix;
 	}
-
+	
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Propriete))
+		if (obj == null)
 			return false;
-		return this.toString().equals(obj.toString());
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Compagnie))
+			return false;
+
+		Propriete o = (Propriete) obj;
+		return this.getName().equals(o.getName())
+				&& this.possesseur.equals(o.possesseur)
+				&& this.hypotheque == o.hypotheque
+				&& this.prix == o.prix;
 	}
 
 	@Override

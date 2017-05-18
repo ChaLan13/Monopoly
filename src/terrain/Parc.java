@@ -9,16 +9,16 @@ import monopoly.Player;
 public class Parc extends Case {
 	private int somme;
 
-	//======================
-	//=====Constructeur=====
-	//======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Parc(String name) {
 		super(name);
 	}
 	
-	//=============================
-	//=====Fonctions Speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions Speciales =====
+	//===============================
 	@Override
 	public void init(){
 		somme = 0;
@@ -32,9 +32,9 @@ public class Parc extends Case {
 		somme = 0;
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	public void addMoney(int somme, Affichage sys){
 		this.somme += somme;
 		//TODO affichage(maj parc)FAIT EN CONSOLE
@@ -44,15 +44,25 @@ public class Parc extends Case {
 	public int getSomme() {
 		return somme;
 	}
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
 		if(!(obj instanceof Parc))
 			return false;
-		return this.toString().equals(obj.toString());
+		Parc o = (Parc) obj;
+		return this.getName().equals(o.getName())
+				&& this.somme == o.somme;
 	}
-	
-	//toString de la classe superieure "Case"
+
+	@Override
+	public String toString() {
+		return this.getName() + "(" + somme + "$)";
+	}
 }

@@ -12,6 +12,9 @@ import monopoly.Player;
 public class Pioche extends Case {
 	private Paquet paquet;
 	
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Pioche(String name, Paquet paquet)throws InvalidParameterException {
 		super(name);
 		if(paquet == null)
@@ -19,6 +22,9 @@ public class Pioche extends Case {
 		this.paquet = paquet;
 	}
 
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	@Override
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
 		Carte carte;
@@ -36,11 +42,19 @@ public class Pioche extends Case {
 	public void init() {
 		paquet.shuffle();
 	}
-
+	
+	//=====================
+	//===== Get & Set =====
+	//=====================
+	
+	//aucun, seuls ceux de la classe superieure "Case"
+	
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof Pioche))
-			return false;
-		return this.toString().equals(obj.toString());
+		return super.equals(obj)
+				&& obj instanceof Pioche;
 	}
 }

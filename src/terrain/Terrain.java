@@ -9,7 +9,23 @@ public class Terrain extends Propriete {
 	private int prixMaison;
 	private ArrayList<Terrain> groupe = new ArrayList<Terrain>();
 	
+	//========================
+	//===== Constructeur =====
+	//========================
+	public Terrain(String name, int prix, int[] valeur, int prixMaison) throws InvalidParameterException {
+		super(name, prix);
+		if(valeur.length != 6)
+			throw new InvalidParameterException("Terrain Constructeur -> valeur[] de mauvaise taille");
+		if(prixMaison < 0)
+			throw new InvalidParameterException("Terrain Constructeur -> prixMaison negatif");
+		
+		this.valeur = valeur;
+		this.prixMaison = prixMaison;
+	}
 	
+	//===============================
+	//===== Fonctions Speciales =====
+	//===============================
 	@Override
 	public void clear() {
 		super.clear();
@@ -26,18 +42,7 @@ public class Terrain extends Propriete {
 			}
 		}
 	}
-
-	public Terrain(String name, int prix, int[] valeur, int prixMaison) throws InvalidParameterException {
-		super(name, prix);
-		if(valeur.length != 6)
-			throw new InvalidParameterException("Terrain Constructeur -> valeur[] de mauvaise taille");
-		if(prixMaison < 0)
-			throw new InvalidParameterException("Terrain Constructeur -> prixMaison negatif");
-		
-		this.valeur = valeur;
-		this.prixMaison = prixMaison;
-	}
-
+	
 	@Override
 	int valeur(int scoreDe) {
 		if(nbrMaison == 0){
@@ -112,28 +117,43 @@ public class Terrain extends Propriete {
 		
 		super.hypothequer();
 	}
-
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	public int getNbrMaison() {
 		return nbrMaison;
 	}
-
+	
 	public void add(Terrain terr1, Terrain terr2) throws InvalidParameterException{
 		this.add(terr1);
 		this.add(terr2);
 	}
+	
 	public void add(Terrain terr) throws InvalidParameterException {
 		if(terr == null)
 			throw new InvalidParameterException("Terrain.add() -> param null");
 		
 		this.groupe.add(terr);
 	}
-
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		if(obj == this)
+			return true;
 		if(!(obj instanceof Terrain))
 			return false;
 		
-		return this.toString().equals(obj.toString());
+		Terrain o = (Terrain) obj;
+		return this.getName().equals(o.getName())
+				&& this.getPossesseur().equals(o.getPossesseur())
+				&& this.getPrix() == o.getPrix()
+				&& this.nbrMaison == o.nbrMaison
+				&& this.prixMaison == o.prixMaison
+				&& this.valeur == o.valeur;
 	}
 
 	@Override

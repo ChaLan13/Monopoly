@@ -6,9 +6,9 @@ public class De{
 	private int max = 6;
 	private int min = 1;
 	
-	//=======================
-	//=====Constructeurs=====
-	//=======================
+	//=========================
+	//===== Constructeurs =====
+	//=========================
 	
 	public De(int min, int max) throws InvalidParameterException{
 		if(min <= 0 || min >= max){
@@ -22,7 +22,7 @@ public class De{
 	public De(){}
 	
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	
 	//fait un jet de de
@@ -30,16 +30,16 @@ public class De{
 		return (int)(Math.random() * (max-min + 1)) + min;
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	public int getMin(){return min;}
 	public int getMax(){return max;}
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	
 	@Override
 	public boolean equals(Object obj) {

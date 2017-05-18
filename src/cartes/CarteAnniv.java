@@ -20,9 +20,9 @@ public class CarteAnniv extends Carte {
 	private ArrayList<Player> players;
 	private int somme;
 	
-	//=======================
-	//=====Constructeur=====
-	//=======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	/**
 	 * <p>Constructor</p>
 	 * <p>Build a new CarteAnniv (the only one in the game)</p>
@@ -45,7 +45,7 @@ public class CarteAnniv extends Carte {
 	}
 
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	/**
 	 * <p>void action</p>
@@ -75,37 +75,18 @@ public class CarteAnniv extends Carte {
 		joueur.addMoney(total);
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	//aucun, seuls ceux de la classe superieure "Carte"
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
-	/**
-	 * <p>boolean equals</p>
-	 * <p>Compares two CarteAnniv and return true if they are the same</p>
-	 * <p>@param obj</p>
-	 * <p>@return boolean</p>
-	 * <p>@author LANUEL Charlotte, SCHWAB Lucas</p>
-	 * 
-	 */
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
-		if(obj == null)
-			return false;
-		if(obj == this)
-			return true;
-		if(!(obj instanceof CarteAnniv))
-			return false;
-		
-		CarteAnniv o = (CarteAnniv) obj;
-		return this.somme == o.somme
-				&& this.getTitre().equals(o.getTitre())
-				&& this.getDesc().equals(o.getDesc())
-				&& this.isSpecial() == o.isSpecial();
+		return super.equals(obj)
+				&& obj instanceof Carte;
 	}
-	
-	//toString de la classe superieure "Carte"
+	//equals et toString de la classe superieure "Carte"
 }

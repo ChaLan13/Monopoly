@@ -9,17 +9,17 @@ import monopoly.Player;
 public abstract class Case{
 	private String name;
 	
-	//======================
-	//=====Constructeur=====
-	//======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	
 	public Case(String name)throws InvalidParameterException {
 		setName(name);
 	}
 
-	//=============================
-	//=====Fonctions speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	
 	//permettera d'initialiser des variables en debut de parties
 	public void init(){}
@@ -36,9 +36,9 @@ public abstract class Case{
 		this.action(joueur, 0, sys);
 	};
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	private void setName(String name)throws InvalidParameterException{
 		if(name == null)
@@ -51,9 +51,9 @@ public abstract class Case{
 	
 	public String getName(){return name;}
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	
 	@Override
 	public boolean equals(Object obj) {

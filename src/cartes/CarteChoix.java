@@ -11,9 +11,9 @@ import monopoly.Player;
 public class CarteChoix extends Carte {
 	Carte choix1, choix2;
 
-	//=======================
-	//=====Constructeur=====
-	//=======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	
 	public CarteChoix(String titre, String desc, Carte choix1, Carte choix2) throws InvalidParameterException {
 		super(titre, desc);
@@ -27,7 +27,7 @@ public class CarteChoix extends Carte {
 	}
 	
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 
 	@Override
@@ -44,15 +44,15 @@ public class CarteChoix extends Carte {
 		}
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	//aucun, seuls ceux de la classe superieur "Carte"
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null)

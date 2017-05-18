@@ -17,9 +17,9 @@ public class CarteMono extends Carte {
 	private boolean caseCible;
 	private Parc parc;
 	
-	//=======================
-	//=====Constructeurs=====
-	//=======================
+	//=========================
+	//===== Constructeurs =====
+	//=========================
 	
 	//plusieurs dispo (valeurs par defaut)
 	public CarteMono(boolean special, String titre, String desc, Parc parc, int gain, int deplacement, boolean caseCible) throws InvalidParameterException {
@@ -49,13 +49,12 @@ public class CarteMono extends Carte {
 		this(special, titre, desc, parc, gain, 0, false);
 	}
 	
-	//=============================
-	//=====Fonctions speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	@Override
 	public void action(Player joueur, Affichage sys, ArrayList<Case> terrain) throws InvalidParameterException {
-		if(this.isntSpecial())//permet l'affichage
-			super.action(joueur, sys, terrain);
+		super.action(joueur, sys, terrain);
 		
 		calculGain(joueur, sys);
 		
@@ -145,15 +144,15 @@ public class CarteMono extends Carte {
 		return first;
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	//aucun a part ceux de la classe superieure Carte
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null)
@@ -165,6 +164,7 @@ public class CarteMono extends Carte {
 		CarteMono o = (CarteMono) obj;
 		return this.getTitre().equals(o.getTitre())
 				&& this.getDesc().equals(o.getDesc())
+				&& this.isSpecial() == o.isSpecial()
 				&& this.gain == o.gain
 				&& this.caseCible == o.caseCible
 				&& this.deplacement == o.deplacement;

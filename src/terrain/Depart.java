@@ -9,15 +9,15 @@ import monopoly.Player;
 
 public class Depart extends Case {
 
-	//======================
-	//=====Constructeur=====
-	//======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Depart(String name) throws InvalidParameterException {
 		super(name);
 	}
 
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	@Override
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
@@ -29,27 +29,19 @@ public class Depart extends Case {
 		joueur.addMoney(200);
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	//aucun, seuls ceux de la classe superieur "Case"
 
-	// ===========================
-	// =====equals & toString=====
-	// ===========================
+	// =============================
+	// ===== equals & toString =====
+	// =============================
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj == this)
-			return true;
-		if (!(obj instanceof Depart))
-			return false;
-
-		Depart o = (Depart) obj;
-		return this.getName().equals(o.getName());
+		return super.equals(obj)
+				&& obj instanceof Depart;
 	}
-	
-	//toString de la classe superieure Case
+	//equals et toString de la classe superieure Case
 }

@@ -11,9 +11,9 @@ public class Impot extends Case {
 	Parc parc;
 	int val;
 	
-	//======================
-	//=====Constructeur=====
-	//======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Impot(String name,Parc parc, int val)throws InvalidParameterException{
 		super(name);
 		if(val < 0)
@@ -26,7 +26,7 @@ public class Impot extends Case {
 	}
 
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	@Override
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
@@ -39,14 +39,15 @@ public class Impot extends Case {
 		}
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	//aucun, seuls ceux de la classe superieure "Propriete"
 
-	// ===========================
-	// =====equals & toString=====
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null)

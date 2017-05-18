@@ -19,16 +19,16 @@ public class Player{
 	private ArrayList<Carte> inv = new ArrayList<Carte>();//inventaire
 	private ArrayList<Propriete> possession = new ArrayList<Propriete>();//terrains
 		
-	//======================
-	//=====Constructeur=====
-	//======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public Player(String pseudo)throws InvalidParameterException{
 		setNom(pseudo);
 	}
 	
-	//=============================
-	//=====Fonctions speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	
 	public void init(){
 		pos = 0;
@@ -124,9 +124,9 @@ public class Player{
 		}
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	public void clearInv(){
 		for(Carte e : inv){
@@ -210,9 +210,9 @@ public class Player{
 		return possession.remove(num);
 	}
 
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null)

@@ -33,9 +33,9 @@ public class Carte{
 	private Paquet paquet;
 	private boolean special;//une carte speciale ne sera pas affichée
 	
-	//=======================
-	//=====Constructeurs=====
-	//=======================
+	//=========================
+	//===== Constructeurs =====
+	//=========================
 	/**
 	 * <b><p>Default constructor for special cards</p></b>
 	 * <p>Build a card</p>
@@ -52,9 +52,9 @@ public class Carte{
 		this(false, titre, desc);
 	}
 	
-	//=============================
-	//=====Fonctions speciales=====
-	//=============================
+	//===============================
+	//===== Fonctions speciales =====
+	//===============================
 	/**
 	 * <b>Void action</b>
 	 * <p>Player draws a card and print the card's text</p>
@@ -85,9 +85,9 @@ public class Carte{
 			paquet.add(this);
 	}
 
-	//===================
-	//=====SET & GET=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	private void setTitre(String titre)throws InvalidParameterException{
 		if(titre == null)
@@ -113,9 +113,9 @@ public class Carte{
 	public boolean isSpecial(){return special;}
 	public boolean isntSpecial(){return !special;}
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 
 	@Override
 	public boolean equals(Object obj) {

@@ -12,9 +12,9 @@ import monopoly.Player;
 public class CarteTirer extends Carte {
 	Paquet autre;
 
-	//=======================
-	//=====Constructeur=====
-	//=======================
+	//========================
+	//===== Constructeur =====
+	//========================
 	public CarteTirer(boolean special, String titre, String desc, Paquet autre) throws InvalidParameterException {
 		super(special, titre, desc);
 		if(autre == null)
@@ -24,7 +24,7 @@ public class CarteTirer extends Carte {
 	}
 	
 	//=============================
-	//=====Fonctions speciales=====
+	//===== Fonction speciale =====
 	//=============================
 	
 	@Override
@@ -41,15 +41,15 @@ public class CarteTirer extends Carte {
 		carte.action(joueur, sys, terrain);
 	}
 	
-	//===================
-	//=====Get & Set=====
-	//===================
+	//=====================
+	//===== Get & Set =====
+	//=====================
 	
 	//aucun a part ceux de la classe superieure "Carte"
 	
-	//===========================
-	//=====equals & toString=====
-	//===========================
+	//=============================
+	//===== equals & toString =====
+	//=============================
 
 	@Override
 	public boolean equals(Object obj) {
