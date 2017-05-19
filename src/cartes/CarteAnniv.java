@@ -60,16 +60,15 @@ public class CarteAnniv extends Carte {
 		int total = 0;
 
 		//on enleve la somme a tout le monde
-		//meme au joueur ayant tire la carte, il se le rendra apres
 		for(Player e : players){
 			e.subMoney(somme);
 			total+=somme;
 		}
 		
-		//TODO affichage(carte anniv)FAIT EN CONSOLE
-		sys.print(joueur.getName() 
-				+ (total > 0? " gagne " : " paye ")
-				+ (total-somme) + "$\n");
+		//faut enlever le compte du joueur
+		total-=somme;
+		
+		sys.AfficherCarteAnniv(joueur, total);
 		
 		//puis on ajoute le tout au joueur
 		joueur.addMoney(total);

@@ -30,9 +30,7 @@ public class Impot extends Case {
 	//=============================
 	@Override
 	public void action(Player joueur, int scoreDe, Affichage sys, ArrayList<Case> terrain) {
-		//TODO affichage(case impot)FAIIT EN CONSOLE
-		
-		sys.print(joueur.getName() + " tombe sur la case impot et doit payer " + this.val + "€.\n");
+		sys.Impot(joueur, this);
 		joueur.subMoney(val);
 		if(parc != null){
 			parc.addMoney(val, sys);
@@ -43,6 +41,7 @@ public class Impot extends Case {
 	//===== Get & Set =====
 	//=====================
 	
+	public int getVal(){return val;}
 	//aucun, seuls ceux de la classe superieure "Propriete"
 
 	//=============================

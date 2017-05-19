@@ -15,7 +15,7 @@ public class Compagnie extends Propriete {
 	//========================
 	public Compagnie(String name) throws InvalidParameterException {
 		super(name, 150);
-		de = new De(2,12);
+		de = new De();
 	}
 	
 	//===============================
@@ -37,20 +37,17 @@ public class Compagnie extends Propriete {
 			this.achat(joueur, sys);
 		}
 		else{
-			//TODO affichage(compagnie affichage carte)FAIT EN CONSOLE
-			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
-			if(this.estHypo()){
-				sys.print("Le terrain est hypothéqué!\n");
-			}
-			else{
-				int tmp = de.jet();
-				//TODO affichage(compagnie affichage carte)FAIT EN CONSOLE
-				sys.print("Il rejette donc les des et fait " + tmp + ".\n");
-				tmp*=10;
-				sys.print("Il va donc payer: " + tmp + "€\n");
-				joueur.subMoney(tmp);
-				this.getPossesseur().addMoney(tmp);
-			}
+			De de = new De();
+			int lance1, lance2, somme;
+			lance1 = sys.JetDe1Compagnie(de);
+			lance2 = sys.JetDe2Compagnie(de);
+			somme = (lance1 + lance2) * 10;
+			
+			sys.CompagnieCarte(joueur, this.getPossesseur(), somme);
+			
+			joueur.subMoney(somme);
+			this.getPossesseur().addMoney(somme);
+
 		}
 	}
 	

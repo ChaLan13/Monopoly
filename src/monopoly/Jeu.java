@@ -11,6 +11,7 @@ import fenetre.Affichage;
 import java.security.InvalidParameterException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 public class Jeu{
@@ -54,25 +55,7 @@ public class Jeu{
 	
 	//Lancement d'une partie
 	public void debut(){
-		//chaque joueurs lance un De pour determiner le 1e
-		De desix = new De();
-		int max = 0;
-		int nbr = 0;
-		int tmp;
-		
-		//TODO affichage (afficher le lance des de pour chaque joueur) FAIT EN CONSOLE
-		//le joueur i lance le de
-		for(int i=0; i<players.size(); i++){
-			players.get(i).init();
-			tmp = desix.jet();
-			sys.print("Le joueur " +players.get(i).getName() +" a fait un lancer egal a " +tmp+ "\n" );
-			if(tmp > max){
-				max = tmp;
-				nbr = i;
-			}
-		}
-		sys.print("Le joueur " +players.get(nbr).getName()+" commence. \n");
-		Collections.swap(players, 0, nbr);
+		sys.JoueurQuiCommence(choisirPremier());
 		
 		for(Case e: terrain)
 			e.init();
@@ -80,8 +63,44 @@ public class Jeu{
 			e.init();
 		
 		this.boucleJeu();
-	}	
-
+	}
+	
+	//chaque joueurs lance un De pour determiner le 1e
+	public Player choisirPremier() {
+		//chaque joueurs lance un De pour determiner le 1e
+		De desix = new De();
+		int tmp = 0, max;
+		int prems;
+		Player prem;
+		
+		ArrayList<Player> reste = new ArrayList<Player>();
+		ArrayList<Player> reste2 = reste;
+		for(Player p : players)
+			reste.add(p);
+		
+		while(reste.size() > 1){
+			max = 0;
+			for (Player p : reste) {
+				tmp = desix.jet();
+				sys.LanceDeDebut(p, tmp);
+				if (tmp > max) {
+					reste2 = new ArrayList<Player>();
+					reste2.add(p);
+					max = tmp;
+				}
+				if(tmp == max)
+					reste2.add(p);
+			}
+			reste = reste2;
+		}
+		
+		prems = players.indexOf(reste.get(0));
+		prem = players.get(prems);
+		
+		Collections.swap(players, 0, prems);
+		return prem;
+	}
+	
 	//boucle jusqu'a la fin du jeu
 	//et affiche la victoire
 	private void boucleJeu(){
@@ -164,59 +183,50 @@ public class Jeu{
 			int tmp = joueur.searchInv(Carte.SORTIE_PRISON_TITRE);
 			boolean rep;
 			if (tmp > -1) {
-
-				// TODO affichage(demande au joueur d'utiliser sa
-				// carte)FAIT EN CONSOLE
-				rep = sys.getBool("Voulez-vous utiliser votre carte de sortie de prison ?\n");
-				if (rep) {
+				if (sys.DemandeCartePrison()) {
 					Carte tmp2 = joueur.popInv(tmp);
 					tmp2.returnPaquet();
 					joueur.setPrison(0);
 				}
 			}
 			if (joueur.getPrison() > 1) {
-				// TODO affichage(demande au joueur de payer 50 pour
-				// sortir) FAIT EN CONSOLE
-				rep = sys.getBool("Voulez-vous payer 50$ pour sortir de prison ?");
-				;
-				if (rep/* payer 50 */) {
-					joueur.addMoney(-50);
+				if (sys.DemandePayerPrison()) {
+					joueur.subMoney(50);
 					joueur.setPrison(0);
 				}
 			} else if (joueur.getPrison() == 1) {
-				// TODO affichage (popup "vous etes oblige de payer 50
-				// pour sortir" "ok") FAIT EN CONSOLE
-				sys.print("Vous etes oblige de payer 50$ pour sortir de prison. \n");
-				joueur.addMoney(-50);
+				sys.AfficherPayerPrison();
+				joueur.subMoney(50);
 				joueur.setPrison(0);
 			}
 		}
 	}
 	private int partieJetDe(Player joueur){
 		// lance de de et deplacement apres les problemes de prison
-		// TODO affichage(lance de de du joueur num)FAIT EN CONSOLE
-		int lance1 = de.jet();
-		int lance2 = de.jet();
+		int lance1;
+		int lance2;
 		
 		//TODO cheat de
 		if(Jeu.CHEAT_TOUR_INFINI && Jeu.CHEAT_DE){
-			lance1 = sys.getInt("Avancer de ?");
+			lance1 = sys.CheatDeplacement();
 			lance2 = 0;
 		}
 		else if(Jeu.CHEAT_DE){
-			lance1 = sys.getInt("Premier de ?");
-			lance2 = sys.getInt("Deuxieme de?");
+			lance1 = sys.CheatDe();
+			lance2 = sys.CheatDe();
+		}
+		else{
+			lance1 = sys.JetDe1(de);
+			lance2 = sys.JetDe2(de);
 		}
 		
 		
-		sys.print(joueur.getName() + " lance les des et fait " + lance1 + " et " + lance2 + " (" + (lance1 + lance2) + ")"
-				+ (lance1==lance2 ? "DOUBLE" : "") + "\n");
+		sys.AfficherLance(joueur, lance1, lance2);
 		if (lance1 == lance2) {
 			nbrDouble++;
 			//TODO cheat tour infini
 			if (!(Jeu.CHEAT_TOUR_INFINI) && nbrDouble == 3) {
-				// TODO affichage(3e double)FAIT EN CONSOLE
-				sys.print("C'est le 3e double! Prison direct!");
+				sys.AfficherTriple();
 				joueur.tpto(10, sys, terrain);
 				joueur.setPrison(3);
 			}
@@ -237,8 +247,7 @@ public class Jeu{
 				// 0
 				tmp = tmp - 40;
 				joueur.addMoney(200);
-				//TODO affichage(case depart)FAIT EN CONSOLE
-				sys.print(joueur.getName() + " passe par la case depart!");
+				sys.FinirTourPlateau(joueur);
 			}
 			joueur.moveto(tmp, sys, terrain);
 
@@ -254,7 +263,7 @@ public class Jeu{
 	//===== Fonctions Menus =====
 	//===========================
 	private void menu(Player joueur){
-		// TODO affichage FAIT EN CONSOLE
+		// TODO affichagez (MENU) FAIT EN CONSOLE
 		int rep = 0;
 		do{
 			rep = sys.getInt("\n\nQue souhaitez vous faire ?\n"

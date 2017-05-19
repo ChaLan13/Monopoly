@@ -71,11 +71,9 @@ public class Carte{
 		if(terrain == null)
 			throw new InvalidParameterException("Carte.action() -> terrain null");
 		
-		//TODO affichage(afficher la carte et la description)FAIT EN CONSOLE
 		//seulement si la carte n'est pas speciale
 		if(this.isntSpecial())
-			sys.print(joueur.getName() + " tire une carte " + this.getPaquet().getName() + "\n"
-					+ this.toString() + "\n");
+			sys.AfficherCarte(joueur, this);
 	}
 	
 	public void returnPaquet(){

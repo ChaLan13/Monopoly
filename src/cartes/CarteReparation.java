@@ -50,8 +50,7 @@ public class CarteReparation extends Carte {
 			}
 		}
 		
-		//TODO affichage(carteReparation)FAIT EN CONSOLE
-		sys.print(joueur.getName() + " doit payer " + somme + "€ au total.\n");
+		sys.AfficherReparation(joueur, somme);
 		
 		joueur.subMoney(somme);
 		parc.addMoney(somme, sys);
