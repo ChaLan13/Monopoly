@@ -39,14 +39,13 @@ public class Gare extends Propriete {
 		if(this.getPossesseur() == null)
 			this.achat(joueur, sys);
 		else{
-			//TODO affichage(tomber sur un terrain possédé)FAIT EN CONSOLE
-			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
+			sys.GareCarte(this, joueur);
 			if(this.estHypo()){
-				sys.print("Le terrain est hypothéqué!\n");
+				sys.GareCarteHypotheque();
 			}
 			else{
 				int tmp = this.valeur(0) * 2;
-				sys.print("Le montant du loyer est: " + tmp + "€\n");
+				sys.GareCartePayer(tmp);
 				joueur.subMoney(tmp);
 				this.getPossesseur().addMoney(tmp);
 			}

@@ -34,7 +34,7 @@ public class CarteChoix extends Carte {
 	public void action(Player joueur, Affichage sys, ArrayList<Case> terrain) throws InvalidParameterException {
 		super.action(joueur, sys, terrain);
 		
-		switch(sys.getInt("Choix 1 ou 2?", 1, 2)){
+		switch(sys.AfficherChoixCarte()){
 			case 1:
 				choix1.action(joueur, sys, terrain);
 				break;
