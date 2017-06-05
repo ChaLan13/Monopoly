@@ -29,6 +29,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Affichage sys = new Affichage();
+		Stage stage= new Stage();
+		
 		Paquet chance, communaute;
 		ArrayList<Case> terrain = new ArrayList<Case>();
 		ArrayList<Player> players = new ArrayList<Player>();
@@ -37,7 +39,7 @@ public class Main extends Application {
 		
 		try {
 			//new FenetrePrincipale(primaryStage);
-			// FenetrePrincipale fen = new FenetrePrincipale(primaryStage);
+			FenetrePrincipale fen = new FenetrePrincipale(primaryStage);
 			chance = new Paquet("chance");
 			communaute = new Paquet("communaute");
 			parc = new Parc("Parc Gratuit");
