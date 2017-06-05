@@ -1,8 +1,13 @@
 package fenetre;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -14,19 +19,24 @@ public class FenetrePrincipale{
 	private Stage stage;
 	
 	public FenetrePrincipale(Stage stage) {
-		this.stage = stage;
+		try{
+			this.stage = stage;
 		
-		Pane root = new Pane();
-		GridPane grid = createGridPane();
+		final URL url= getClass().getResource("monopolyPaneVersion.fxml");
+		final FXMLLoader loader = new FXMLLoader(url);
+		final Pane root = (Pane) loader.load();
 		Scene scene = new Scene(root,1000,1000);
 		stage.setScene(scene);
-		root.getChildren().add(grid);
 		
         stage.show();
+		}
+		catch(IOException ex){
+			System.err.println("Erreur de chargement");
+		}
     
 	}
 	
-	public GridPane createGridPane(){
+	/* public GridPane createGridPane(){
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -60,7 +70,7 @@ public class FenetrePrincipale{
 		
 		return grid;
 		
-	}
+	}*/
 	
 	
 	public Stage getStage() {

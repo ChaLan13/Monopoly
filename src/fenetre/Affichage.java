@@ -3,10 +3,15 @@ package fenetre;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import cartes.CarteChoix;
 import common.Carte;
 import common.De;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import monopoly.Player;
 import terrain.Compagnie;
 import terrain.Gare;
@@ -21,16 +26,18 @@ public class Affichage {
 	public Affichage() {
 		// scanner close a la fin du main
 		sc = new BufferedReader(new InputStreamReader(System.in));
+		
 	}
+
 
 	// ==============================
 	// ===== Fonctions Basiques =====
 	// ==============================
-	private void print(String message) {
+	public void print(String message) {
 		System.out.println(message);
 	}
 
-	private String getString(String message) {
+	public String getString(String message) {
 		try {
 			this.print(message);
 			String rep;
@@ -45,7 +52,7 @@ public class Affichage {
 	// affiche le message puis demande un booleen
 	// ne pas mettre de \n a la fin de message
 	// plein de possibilite (o, O, oui, Oui, y, yes, Y, Yes ...)
-	private boolean getBool(String message) {
+	public boolean getBool(String message) {
 		try {
 			boolean suite = true;
 
@@ -88,15 +95,15 @@ public class Affichage {
 		return false;
 	}
 
-	private int getInt(String message) {
+	public int getInt(String message) {
 		return getInt(message, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	private int getInt(String message, int min) {
+	public int getInt(String message, int min) {
 		return getInt(message, min, Integer.MAX_VALUE);
 	}
 
-	private int getInt(String message, int min, int max) {
+	public int getInt(String message, int min, int max) {
 		try {
 			boolean suite = true;
 			String rep;
