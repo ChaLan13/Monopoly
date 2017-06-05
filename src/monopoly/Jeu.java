@@ -88,7 +88,7 @@ public class Jeu{
 					reste2.add(p);
 					max = tmp;
 				}
-				if(tmp == max)
+				else if(tmp == max)
 					reste2.add(p);
 			}
 			reste = reste2;
