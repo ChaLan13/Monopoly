@@ -39,7 +39,7 @@ public class Main extends Application {
 		
 		try {
 			//new FenetrePrincipale(primaryStage);
-			FenetrePrincipale fen = new FenetrePrincipale(primaryStage);
+			FenetrePrincipale fen = new FenetrePrincipale(stage);
 			chance = new Paquet("chance");
 			communaute = new Paquet("communaute");
 			parc = new Parc("Parc Gratuit");

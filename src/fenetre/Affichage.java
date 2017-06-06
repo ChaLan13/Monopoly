@@ -250,9 +250,8 @@ public class Affichage {
 		return de.jet();
 	}
 
-	public void CompagnieCarte(Player joueur, Player possesseur, int somme) {
-		this.print(joueur.getName() + " tombe sur la case de " + possesseur.getName() + " et doit payer " + somme
-				+ "$.\n");
+	public void CompagnieCarte(Compagnie compagnie, Player joueur) {
+		this.print(joueur.getName() + " tombe sur " + compagnie.getName() + " appartenant a " + compagnie.getPossesseur().getName() + ".\n");
 	}
 
 	// Gare.actionCarte

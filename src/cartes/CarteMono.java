@@ -70,33 +70,41 @@ public class CarteMono extends Carte {
 	
 	private void calculDeplacement(Player joueur, Affichage sys, ArrayList<Case> terrain){
 		if (caseCible) {//si on doit se deplacer jusque "deplacement"
-			if (getTitre().equals(Carte.PRISON_TITRE)) {
-				joueur.tpto(deplacement, sys, terrain);
-				joueur.setPrison(3);
-			} else {
-				int dpm = 0;
-				
-				if (this.getTitre().equals(Carte.GARE_PLUS_PROCHE_TITRE)) 
-					dpm = rechercheGare(joueur, terrain);
-				
-				else if (this.getTitre().equals(Carte.COMPAGNIE_PLUS_PROCHE_TITRE)) 
-					dpm = rechercheCompagnie(joueur, terrain);
-				
-				else 
-					dpm = this.deplacement;
-				
-				// si il doit completer un tour pour arriver sur la case
-				//-> passer par la case depart
-				if (joueur.getPos() > dpm)
-					joueur.addMoney(200);
-				joueur.moveto(dpm, sys, terrain);
-				terrain.get(joueur.getPos()).actionCarte(joueur, sys);
-			}
+			tpJoueur(joueur,terrain, sys);
 		}
 		else {//si on doit se deplacer de "deplacement" cases
 			deplacerJoueur(joueur, terrain, sys);
 		}
 		
+		
+	}
+	
+	private void tpJoueur(Player joueur, ArrayList<Case> terrain, Affichage sys){
+		if (getTitre().equals(Carte.PRISON_TITRE)) {
+			joueur.tpto(deplacement, sys, terrain);
+			joueur.setPrison(3);
+		} else {
+				int dpm = 0;
+		
+		if (this.getTitre().equals(Carte.GARE_PLUS_PROCHE_TITRE)) 
+			dpm = rechercheGare(joueur, terrain);
+		
+		else if (this.getTitre().equals(Carte.COMPAGNIE_PLUS_PROCHE_TITRE)) 
+			dpm = rechercheCompagnie(joueur, terrain);
+		
+		else 
+			dpm = this.deplacement;
+		
+		// si il doit completer un tour pour arriver sur la case
+		//-> passer par la case depart
+		if (joueur.getPos() > dpm)
+			joueur.addMoney(200);
+		joueur.moveto(dpm, sys, terrain);
+		terrain.get(joueur.getPos()).actionCarte(joueur, sys);
+		}
+		
+		
+	
 	}
 		
 	private void deplacerJoueur(Player joueur, ArrayList<Case> terrain, Affichage sys){
@@ -109,7 +117,6 @@ public class CarteMono extends Carte {
 			}
 			if (tmp < 0){//on peut aussi reculer
 				tmp += 40;
-				joueur.addMoney(200);
 			}
 			joueur.moveto(tmp, sys, terrain);
 			terrain.get(joueur.getPos()).actionCarte(joueur, sys);

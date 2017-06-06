@@ -36,18 +36,29 @@ public class Compagnie extends Propriete {
 		if(this.getPossesseur() == null){
 			this.achat(joueur, sys);
 		}
+		
 		else{
-			De de = new De();
-			int lance1, lance2, somme;
-			lance1 = sys.JetDe1Compagnie(de);
-			lance2 = sys.JetDe2Compagnie(de);
-			somme = (lance1 + lance2) * 10;
+			if(this.getPossesseur().equals(joueur)){
+				sys.print("Vous etes le possesseur, rien ne se passe \n");
+			}
+			else {
+				if(this.estHypo()){
+					sys.print("Terrain hypotheque");
+				}
+				else {
+					sys.CompagnieCarte(this, joueur);
+					De de = new De();
+					int lance1, lance2, somme;
+					lance1 = sys.JetDe1Compagnie(de);
+					lance2 = sys.JetDe2Compagnie(de);
+					somme = (lance1 + lance2) * 10;
 			
-			sys.CompagnieCarte(joueur, this.getPossesseur(), somme);
+					sys.print("Vous devez payer " + somme +"\n");
 			
-			joueur.subMoney(somme);
-			this.getPossesseur().addMoney(somme);
-
+					joueur.subMoney(somme);
+					this.getPossesseur().addMoney(somme);
+				}
+			}
 		}
 	}
 	

@@ -36,7 +36,11 @@ public abstract class Propriete extends Case {
 		else{
 			//TODO affichage(tomber sur un terrain possede)FAIT EN CONSOLE
 			sys.print(joueur.getName() + " tombe sur " + this.getName() + " appartenant a " + this.getPossesseur().getName() + ".\n");
-			if(hypotheque){
+			if(possesseur.equals(joueur)){
+				sys.print("Vous etes le possesseur, rien ne se passe");
+			}
+			else {
+				if(hypotheque){
 				sys.print("Le terrain est hypotheque!\n");
 			}
 			else{
@@ -45,6 +49,8 @@ public abstract class Propriete extends Case {
 				joueur.subMoney(tmp);
 				possesseur.addMoney(tmp);
 			}
+			}
+			
 		}
 	}
 	
@@ -68,7 +74,7 @@ public abstract class Propriete extends Case {
 	}
 
 	public void hypothequer(){
-		//prix de l'hypothèque: prix/2
+		//prix de l'hypothï¿½que: prix/2
 		if(!hypotheque){
 			hypotheque = true;
 			if(possesseur != null){
@@ -79,7 +85,7 @@ public abstract class Propriete extends Case {
 	
 	public void leverHypo(){
 		//prix pour lever l'hypotheque:
-		//la moitié du prix + 10%
+		//la moitiï¿½ du prix + 10%
 		//-> prix/2 + ((prix/2) / 100) * 10
 		//-> prix/2 + (prix/200)*10
 		//-> prix/2 + prix/20

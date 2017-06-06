@@ -40,7 +40,11 @@ public class Gare extends Propriete {
 			this.achat(joueur, sys);
 		else{
 			sys.GareCarte(this, joueur);
-			if(this.estHypo()){
+			if(this.getPossesseur().equals(joueur)){
+				sys.print("Vous etes le possesseur, rien ne se passe. \n");
+			}
+			else {
+				if(this.estHypo()){
 				sys.GareCarteHypotheque();
 			}
 			else{
@@ -49,6 +53,8 @@ public class Gare extends Propriete {
 				joueur.subMoney(tmp);
 				this.getPossesseur().addMoney(tmp);
 			}
+			}
+			
 		}
 	}
 	
